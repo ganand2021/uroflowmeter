@@ -1,0 +1,54 @@
+\doxysection{src/\+AWSManager.cpp File Reference}
+\hypertarget{_a_w_s_manager_8cpp}{}\label{_a_w_s_manager_8cpp}\index{src/AWSManager.cpp@{src/AWSManager.cpp}}
+{\ttfamily \#include "{}AWSManager.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_a_w_s_manager_8cpp_a11ac540cd93a71ff3309e244365132ae}{connect\+\_\+to\+\_\+aws}} ()
+\begin{DoxyCompactList}\small\item\em Connects to AWS IoT Core with the configured parameters and credentials. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Pub\+Sub\+Client \mbox{\hyperlink{_a_w_s_manager_8cpp_a965861de1a367ef4c2b467de34de2683}{mqtt\+\_\+client}}
+\begin{DoxyCompactList}\small\item\em MQTT client instance for sending and receiving messages with AWS IoT Core. \end{DoxyCompactList}\item 
+Wi\+Fi\+Client\+Secure \mbox{\hyperlink{_a_w_s_manager_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3}{secure\+\_\+client}}
+\begin{DoxyCompactList}\small\item\em Secure client instance for establishing encrypted connections. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_a_w_s_manager_8cpp_a11ac540cd93a71ff3309e244365132ae}\label{_a_w_s_manager_8cpp_a11ac540cd93a71ff3309e244365132ae} 
+\index{AWSManager.cpp@{AWSManager.cpp}!connect\_to\_aws@{connect\_to\_aws}}
+\index{connect\_to\_aws@{connect\_to\_aws}!AWSManager.cpp@{AWSManager.cpp}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_aws()}{connect\_to\_aws()}}
+{\footnotesize\ttfamily void connect\+\_\+to\+\_\+aws (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Connects to AWS IoT Core with the configured parameters and credentials. 
+
+Initialize connection parameters for AWS IoT Core and establish a connection.
+
+This function sets up the secure client with AWS\textquotesingle{}s public certificate, the device\textquotesingle{}s certificate, and private key. It attempts to connect to the MQTT server defined by AWS\+\_\+\+END\+\_\+\+POINT and AWS\+\_\+\+PORT. If the connection fails, it retries until the connection is successful. 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_a_w_s_manager_8cpp_a965861de1a367ef4c2b467de34de2683}\label{_a_w_s_manager_8cpp_a965861de1a367ef4c2b467de34de2683} 
+\index{AWSManager.cpp@{AWSManager.cpp}!mqtt\_client@{mqtt\_client}}
+\index{mqtt\_client@{mqtt\_client}!AWSManager.cpp@{AWSManager.cpp}}
+\doxysubsubsection{\texorpdfstring{mqtt\_client}{mqtt\_client}}
+{\footnotesize\ttfamily Pub\+Sub\+Client mqtt\+\_\+client\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+MQTT client instance for sending and receiving messages with AWS IoT Core. 
+
+\Hypertarget{_a_w_s_manager_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3}\label{_a_w_s_manager_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3} 
+\index{AWSManager.cpp@{AWSManager.cpp}!secure\_client@{secure\_client}}
+\index{secure\_client@{secure\_client}!AWSManager.cpp@{AWSManager.cpp}}
+\doxysubsubsection{\texorpdfstring{secure\_client}{secure\_client}}
+{\footnotesize\ttfamily Wi\+Fi\+Client\+Secure secure\+\_\+client\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Secure client instance for establishing encrypted connections. 
+
+Secure client instance for establishing encrypted connections. 

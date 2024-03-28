@@ -1,0 +1,23 @@
+\doxysection{Timestamp.\+h}
+\hypertarget{_timestamp_8h_source}{}\label{_timestamp_8h_source}\index{include/Timestamp.h@{include/Timestamp.h}}
+\mbox{\hyperlink{_timestamp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ TIMESTAMP\_h}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ TIMESTAMP\_h}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <NTPClient.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <WiFi.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <TimeLib.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ NTP\_SERVER\ "{}north-\/america.pool.ntp.org"{}\ }}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ DATETIME\_FORMAT\ "{}\%04d-\/\%02d-\/\%02dT\%02d:\%02d:\%02dZ"{}\ }}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ WiFiUDP\ \mbox{\hyperlink{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778}{ntp\_udp}};\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{extern}\ NTPClient\ \mbox{\hyperlink{_timestamp_8h_aa869c85dfb8b350973065687b95fcafc}{time\_client}};\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00027\ String\ \mbox{\hyperlink{_timestamp_8h_ad17c9b2818563d00d3184f8d54a94d51}{get\_formatted\_date\_time}}();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

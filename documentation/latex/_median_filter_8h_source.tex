@@ -1,0 +1,30 @@
+\doxysection{Median\+Filter.\+h}
+\hypertarget{_median_filter_8h_source}{}\label{_median_filter_8h_source}\index{include/MedianFilter.h@{include/MedianFilter.h}}
+\mbox{\hyperlink{_median_filter_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ MEDIANFILTER\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MEDIANFILTER\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_median_filter}{MedianFilter}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_median_filter_a3aa8431e2671689ea1d1215accf0024f}{MedianFilter}}(\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_median_filter_a3dced434b942a697a72a56938bc41e8f}{windowSize}});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_median_filter_a52a532aba9959e51470f5084a09d05f2}{push\_val}}(\textcolor{keywordtype}{float}\ newValue);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_median_filter_ac81cc5b9aae1ac59aac44748c9ae5e73}{get\_median}}();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_median_filter_a6eb649a5b42a75678fb229b06b5e21a4}{print\_vals}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \ \ std::vector<float>\ \mbox{\hyperlink{class_median_filter_a4f37283f8123a1ce5efc326f27fa4d1d}{values}};\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_median_filter_a3dced434b942a697a72a56938bc41e8f}{windowSize}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

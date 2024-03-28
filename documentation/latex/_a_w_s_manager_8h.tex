@@ -1,0 +1,38 @@
+\doxysection{include/\+AWSManager.h File Reference}
+\hypertarget{_a_w_s_manager_8h}{}\label{_a_w_s_manager_8h}\index{include/AWSManager.h@{include/AWSManager.h}}
+
+
+Interface for managing connections to AWS IoT Core.  
+
+
+{\ttfamily \#include $<$Wi\+Fi\+Client\+Secure.\+h$>$}\newline
+{\ttfamily \#include $<$Pub\+Sub\+Client.\+h$>$}\newline
+{\ttfamily \#include "{}secrets.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_a_w_s_manager_8h_a11ac540cd93a71ff3309e244365132ae}{connect\+\_\+to\+\_\+aws}} ()
+\begin{DoxyCompactList}\small\item\em Initialize connection parameters for AWS IoT Core and establish a connection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for managing connections to AWS IoT Core. 
+
+This file defines the function necessary to establish a secure connection to AWS IoT Core. It relies on external configuration provided through {\ttfamily \doxylink{secrets_8h}{secrets.\+h}} for connection credentials including the AWS IoT Core endpoint, port, and security certificates. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_a_w_s_manager_8h_a11ac540cd93a71ff3309e244365132ae}\label{_a_w_s_manager_8h_a11ac540cd93a71ff3309e244365132ae} 
+\index{AWSManager.h@{AWSManager.h}!connect\_to\_aws@{connect\_to\_aws}}
+\index{connect\_to\_aws@{connect\_to\_aws}!AWSManager.h@{AWSManager.h}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_aws()}{connect\_to\_aws()}}
+{\footnotesize\ttfamily void connect\+\_\+to\+\_\+aws (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize connection parameters for AWS IoT Core and establish a connection. 
+
+This function configures the MQTT client with the necessary security certificates and private key, and connects to AWS IoT Core using the device name as the MQTT client ID. It handles connection retries in case the initial connection attempt fails.
+
+Initialize connection parameters for AWS IoT Core and establish a connection.
+
+This function sets up the secure client with AWS\textquotesingle{}s public certificate, the device\textquotesingle{}s certificate, and private key. It attempts to connect to the MQTT server defined by AWS\+\_\+\+END\+\_\+\+POINT and AWS\+\_\+\+PORT. If the connection fails, it retries until the connection is successful. 

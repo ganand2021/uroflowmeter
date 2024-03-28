@@ -1,0 +1,32 @@
+\doxysection{Load\+Cell.\+h}
+\hypertarget{_load_cell_8h_source}{}\label{_load_cell_8h_source}\index{include/LoadCell.h@{include/LoadCell.h}}
+\mbox{\hyperlink{_load_cell_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ LOADCELL\_h}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ LOADCELL\_h}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <SparkFun\_Qwiic\_Scale\_NAU7802\_Arduino\_Library.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_median_filter_8h}{MedianFilter.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \#define\ WINDOW\_SIZE}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{extern}\ NAU7802\ \mbox{\hyperlink{_load_cell_8h_ae16b2283287383f97a79a0df2407eed4}{my\_scale}};\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}{previous\_weight}};\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}{previous\_timestamp}};\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_flow_rate_result}{FlowRateResult}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_flow_rate_result_a52561bf878a387c3a658df5552167362}{flow\_rate}};\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_flow_rate_result_ac85059b307aafdfcb6b4f0a30de8b5df}{volume}};\ }
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_load_cell_8h_a6000449864691a5e74750bda0537e8da}{scale\_setup}}();\ }
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_load_cell_8h_adbdb233f6c0146ec3b54681143f4082c}{get\_scale\_weight}}();\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_load_cell_8h_a3cdd9456365d866e45a498b31d84c2cb}{get\_flow\_rate}}();\ }
+\DoxyCodeLine{00034\ \mbox{\hyperlink{struct_flow_rate_result}{FlowRateResult}}\ \mbox{\hyperlink{_load_cell_8h_a7152bd2edbcf11ba2710a956f1481f27}{get\_flow\_info}}();\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

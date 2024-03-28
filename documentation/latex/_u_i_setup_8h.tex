@@ -1,0 +1,36 @@
+\doxysection{include/\+UISetup.h File Reference}
+\hypertarget{_u_i_setup_8h}{}\label{_u_i_setup_8h}\index{include/UISetup.h@{include/UISetup.h}}
+
+
+Interface for setting up a user interface for configuring the ESP device over Wi\+Fi.  
+
+
+{\ttfamily \#include $<$ESPUI.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_u_i_setup_8h_a171306373ac5172c14199b67c20df42f}{setup\+\_\+ui}} ()
+\begin{DoxyCompactList}\small\item\em Sets up the user interface using the ESPUI library. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for setting up a user interface for configuring the ESP device over Wi\+Fi. 
+
+This file declares a function to initialize a web-\/based user interface using the ESPUI library. The UI allows users to enter Wi\+Fi credentials and connect the ESP device to a network. It is particularly useful for projects that require a simple and accessible method for connecting devices to Wi\+Fi networks without hardcoding credentials. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_u_i_setup_8h_a171306373ac5172c14199b67c20df42f}\label{_u_i_setup_8h_a171306373ac5172c14199b67c20df42f} 
+\index{UISetup.h@{UISetup.h}!setup\_ui@{setup\_ui}}
+\index{setup\_ui@{setup\_ui}!UISetup.h@{UISetup.h}}
+\doxysubsubsection{\texorpdfstring{setup\_ui()}{setup\_ui()}}
+{\footnotesize\ttfamily void setup\+\_\+ui (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sets up the user interface using the ESPUI library. 
+
+This function initializes the ESP device as a Wi\+Fi access point and sets up a web-\/based UI for Wi\+Fi configuration. Users can enter their SSID and password through the UI, which then uses these credentials to connect to the Wi\+Fi network.
+
+Sets up the user interface using the ESPUI library.
+
+This function configures the ESP device to operate as a Wi\+Fi access point and initializes a web-\/based interface for network configuration. It provides fields for SSID and password input and a connect button to initiate the connection process. The UI is built using the ESPUI library and leverages callbacks for interactive elements. 

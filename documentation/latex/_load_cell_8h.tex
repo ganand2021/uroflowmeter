@@ -1,0 +1,141 @@
+\doxysection{include/\+Load\+Cell.h File Reference}
+\hypertarget{_load_cell_8h}{}\label{_load_cell_8h}\index{include/LoadCell.h@{include/LoadCell.h}}
+
+
+This file defines the interface for the Load\+Cell module, which includes setup and utility functions for reading and interpreting data from a load cell using the NAU7802 Qwiic scale.  
+
+
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Spark\+Fun\+\_\+\+Qwiic\+\_\+\+Scale\+\_\+\+NAU7802\+\_\+\+Arduino\+\_\+\+Library.\+h$>$}\newline
+{\ttfamily \#include "{}Median\+Filter.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_flow_rate_result}{Flow\+Rate\+Result}}
+\begin{DoxyCompactList}\small\item\em Struct to hold the flow rate and volume results. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_load_cell_8h_a6000449864691a5e74750bda0537e8da}{scale\+\_\+setup}} ()
+\begin{DoxyCompactList}\small\item\em Sets up the scale hardware and initializes communication. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_load_cell_8h_adbdb233f6c0146ec3b54681143f4082c}{get\+\_\+scale\+\_\+weight}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current weight measured by the scale. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_load_cell_8h_a3cdd9456365d866e45a498b31d84c2cb}{get\+\_\+flow\+\_\+rate}} ()
+\begin{DoxyCompactList}\small\item\em Calculates and returns the current flow rate. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_flow_rate_result}{Flow\+Rate\+Result}} \mbox{\hyperlink{_load_cell_8h_a7152bd2edbcf11ba2710a956f1481f27}{get\+\_\+flow\+\_\+info}} ()
+\begin{DoxyCompactList}\small\item\em Calculates and returns flow rate and volume information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+NAU7802 \mbox{\hyperlink{_load_cell_8h_ae16b2283287383f97a79a0df2407eed4}{my\+\_\+scale}}
+\begin{DoxyCompactList}\small\item\em Instance of the NAU7802 class to communicate with the Qwiic Scale. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}{previous\+\_\+weight}}
+\begin{DoxyCompactList}\small\item\em Stores the last measured weight, used to calculate flow rate. \end{DoxyCompactList}\item 
+unsigned long \mbox{\hyperlink{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}{previous\+\_\+timestamp}}
+\begin{DoxyCompactList}\small\item\em Stores the last timestamp of measurement, used in flow rate calculation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines the interface for the Load\+Cell module, which includes setup and utility functions for reading and interpreting data from a load cell using the NAU7802 Qwiic scale. 
+
+It includes initialization of the load cell, fetching the current weight, calculating the flow rate, and getting flow information based on the weight changes over time. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_load_cell_8h_a7152bd2edbcf11ba2710a956f1481f27}\label{_load_cell_8h_a7152bd2edbcf11ba2710a956f1481f27} 
+\index{LoadCell.h@{LoadCell.h}!get\_flow\_info@{get\_flow\_info}}
+\index{get\_flow\_info@{get\_flow\_info}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{get\_flow\_info()}{get\_flow\_info()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_flow_rate_result}{Flow\+Rate\+Result}} get\+\_\+flow\+\_\+info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates and returns flow rate and volume information. 
+
+Calculates and returns flow rate and volume information.
+
+This function calculates the flow rate using the weight difference and the elapsed time since the last measurement. It also calculates the total volume based on the current weight. The calculation assumes a specific gravity of the liquid to convert weight to volume.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_flow_rate_result}{Flow\+Rate\+Result} A struct containing the calculated flow rate and volume. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8h_a3cdd9456365d866e45a498b31d84c2cb}\label{_load_cell_8h_a3cdd9456365d866e45a498b31d84c2cb} 
+\index{LoadCell.h@{LoadCell.h}!get\_flow\_rate@{get\_flow\_rate}}
+\index{get\_flow\_rate@{get\_flow\_rate}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{get\_flow\_rate()}{get\_flow\_rate()}}
+{\footnotesize\ttfamily float get\+\_\+flow\+\_\+rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates and returns the current flow rate. 
+
+Calculates and returns the current flow rate.
+
+This function uses the difference in weight and time to calculate the flow rate.
+
+\begin{DoxyReturn}{Returns}
+float The current flow rate. If the calculated flow rate is negative, 0.\+0 is returned. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8h_adbdb233f6c0146ec3b54681143f4082c}\label{_load_cell_8h_adbdb233f6c0146ec3b54681143f4082c} 
+\index{LoadCell.h@{LoadCell.h}!get\_scale\_weight@{get\_scale\_weight}}
+\index{get\_scale\_weight@{get\_scale\_weight}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{get\_scale\_weight()}{get\_scale\_weight()}}
+{\footnotesize\ttfamily float get\+\_\+scale\+\_\+weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the current weight measured by the scale. 
+
+Returns the current weight measured by the scale.
+
+This function reads multiple weight samples, filters them through a median filter, and returns the median as the current weight.
+
+\begin{DoxyReturn}{Returns}
+float The current weight measured by the load cell. If the weight is negative, 0.\+0 is returned. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8h_a6000449864691a5e74750bda0537e8da}\label{_load_cell_8h_a6000449864691a5e74750bda0537e8da} 
+\index{LoadCell.h@{LoadCell.h}!scale\_setup@{scale\_setup}}
+\index{scale\_setup@{scale\_setup}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{scale\_setup()}{scale\_setup()}}
+{\footnotesize\ttfamily void scale\+\_\+setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Sets up the scale hardware and initializes communication. 
+
+Sets up the scale hardware and initializes communication.
+
+This function starts the Wire library, sets the clock speed, and initializes the NAU7802 scale. It also sets the calibration factor and calibrates the Analog Front End (AFE) of the NAU7802. 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_load_cell_8h_ae16b2283287383f97a79a0df2407eed4}\label{_load_cell_8h_ae16b2283287383f97a79a0df2407eed4} 
+\index{LoadCell.h@{LoadCell.h}!my\_scale@{my\_scale}}
+\index{my\_scale@{my\_scale}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{my\_scale}{my\_scale}}
+{\footnotesize\ttfamily NAU7802 my\+\_\+scale\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Instance of the NAU7802 class to communicate with the Qwiic Scale. 
+
+Instance of the NAU7802 class to communicate with the Qwiic Scale. \Hypertarget{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}\label{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836} 
+\index{LoadCell.h@{LoadCell.h}!previous\_timestamp@{previous\_timestamp}}
+\index{previous\_timestamp@{previous\_timestamp}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{previous\_timestamp}{previous\_timestamp}}
+{\footnotesize\ttfamily unsigned long previous\+\_\+timestamp\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Stores the last timestamp of measurement, used in flow rate calculation. 
+
+Stores the last timestamp of measurement, used in flow rate calculation. \Hypertarget{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}\label{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7} 
+\index{LoadCell.h@{LoadCell.h}!previous\_weight@{previous\_weight}}
+\index{previous\_weight@{previous\_weight}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{previous\_weight}{previous\_weight}}
+{\footnotesize\ttfamily float previous\+\_\+weight\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Stores the last measured weight, used to calculate flow rate. 
+
+Stores the last measured weight, used to calculate flow rate. 

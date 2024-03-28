@@ -1,0 +1,103 @@
+\doxysection{include/\+Timestamp.h File Reference}
+\hypertarget{_timestamp_8h}{}\label{_timestamp_8h}\index{include/Timestamp.h@{include/Timestamp.h}}
+
+
+Provides functionality for obtaining and formatting the current date and time.  
+
+
+{\ttfamily \#include $<$NTPClient.\+h$>$}\newline
+{\ttfamily \#include $<$Wi\+Fi.\+h$>$}\newline
+{\ttfamily \#include $<$Time\+Lib.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}{NTP\+\_\+\+SERVER}}~"{}north-\/america.\+pool.\+ntp.\+org"{}
+\begin{DoxyCompactList}\small\item\em NTP server to use for time synchronization. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_timestamp_8h_a219c5bc34a56ad8c04257dbf550b7d42}{DATETIME\+\_\+\+FORMAT}}~"{}\%04d-\/\%02d-\/\%02dT\%02d\+:\%02d\+:\%02d\+Z"{}
+\begin{DoxyCompactList}\small\item\em Format string for ISO 8601 date and time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+String \mbox{\hyperlink{_timestamp_8h_ad17c9b2818563d00d3184f8d54a94d51}{get\+\_\+formatted\+\_\+date\+\_\+time}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current date and time in ISO 8601 format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Wi\+Fi\+UDP \mbox{\hyperlink{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}
+\begin{DoxyCompactList}\small\item\em UDP client for NTP communication. \end{DoxyCompactList}\item 
+NTPClient \mbox{\hyperlink{_timestamp_8h_aa869c85dfb8b350973065687b95fcafc}{time\+\_\+client}}
+\begin{DoxyCompactList}\small\item\em NTP client for fetching current time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides functionality for obtaining and formatting the current date and time. 
+
+This file defines a method for fetching the current date and time from an NTP server and formatting it into a standardized ISO 8601 format. It utilizes the NTPClient library to obtain accurate time information over the internet and formats it for easy use in logging, events, or any application requiring time stamps. 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_timestamp_8h_a219c5bc34a56ad8c04257dbf550b7d42}\label{_timestamp_8h_a219c5bc34a56ad8c04257dbf550b7d42} 
+\index{Timestamp.h@{Timestamp.h}!DATETIME\_FORMAT@{DATETIME\_FORMAT}}
+\index{DATETIME\_FORMAT@{DATETIME\_FORMAT}!Timestamp.h@{Timestamp.h}}
+\doxysubsubsection{\texorpdfstring{DATETIME\_FORMAT}{DATETIME\_FORMAT}}
+{\footnotesize\ttfamily \#define DATETIME\+\_\+\+FORMAT~"{}\%04d-\/\%02d-\/\%02dT\%02d\+:\%02d\+:\%02d\+Z"{}}
+
+
+
+Format string for ISO 8601 date and time. 
+
+\Hypertarget{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}\label{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0} 
+\index{Timestamp.h@{Timestamp.h}!NTP\_SERVER@{NTP\_SERVER}}
+\index{NTP\_SERVER@{NTP\_SERVER}!Timestamp.h@{Timestamp.h}}
+\doxysubsubsection{\texorpdfstring{NTP\_SERVER}{NTP\_SERVER}}
+{\footnotesize\ttfamily \#define NTP\+\_\+\+SERVER~"{}north-\/america.\+pool.\+ntp.\+org"{}}
+
+
+
+NTP server to use for time synchronization. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_timestamp_8h_ad17c9b2818563d00d3184f8d54a94d51}\label{_timestamp_8h_ad17c9b2818563d00d3184f8d54a94d51} 
+\index{Timestamp.h@{Timestamp.h}!get\_formatted\_date\_time@{get\_formatted\_date\_time}}
+\index{get\_formatted\_date\_time@{get\_formatted\_date\_time}!Timestamp.h@{Timestamp.h}}
+\doxysubsubsection{\texorpdfstring{get\_formatted\_date\_time()}{get\_formatted\_date\_time()}}
+{\footnotesize\ttfamily String get\+\_\+formatted\+\_\+date\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the current date and time in ISO 8601 format. 
+
+\begin{DoxyReturn}{Returns}
+String The current date and time formatted as a string according to the ISO 8601 standard.
+\end{DoxyReturn}
+Gets the current date and time in ISO 8601 format.
+
+This function fetches the current epoch time from the NTP server, breaks it down into its component year, month, day, hour, minute, and second, and then formats these components into a string according to the ISO 8601 standard. This format is widely used for data exchange and ensures that the timestamp is easily readable and unambiguous.
+
+\begin{DoxyReturn}{Returns}
+String A string representing the current date and time in ISO 8601 format. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778}\label{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778} 
+\index{Timestamp.h@{Timestamp.h}!ntp\_udp@{ntp\_udp}}
+\index{ntp\_udp@{ntp\_udp}!Timestamp.h@{Timestamp.h}}
+\doxysubsubsection{\texorpdfstring{ntp\_udp}{ntp\_udp}}
+{\footnotesize\ttfamily Wi\+Fi\+UDP ntp\+\_\+udp\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+UDP client for NTP communication. 
+
+UDP client for NTP communication. \Hypertarget{_timestamp_8h_aa869c85dfb8b350973065687b95fcafc}\label{_timestamp_8h_aa869c85dfb8b350973065687b95fcafc} 
+\index{Timestamp.h@{Timestamp.h}!time\_client@{time\_client}}
+\index{time\_client@{time\_client}!Timestamp.h@{Timestamp.h}}
+\doxysubsubsection{\texorpdfstring{time\_client}{time\_client}}
+{\footnotesize\ttfamily NTPClient time\+\_\+client\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+NTP client for fetching current time. 
+

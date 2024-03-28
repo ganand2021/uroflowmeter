@@ -1,0 +1,144 @@
+\doxysection{Median\+Filter Class Reference}
+\hypertarget{class_median_filter}{}\label{class_median_filter}\index{MedianFilter@{MedianFilter}}
+
+
+Implements a median filter for real-\/time data filtering.  
+
+
+
+
+{\ttfamily \#include $<$Median\+Filter.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_median_filter_a3aa8431e2671689ea1d1215accf0024f}{Median\+Filter}} (size\+\_\+t \mbox{\hyperlink{class_median_filter_a3dced434b942a697a72a56938bc41e8f}{window\+Size}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_median_filter}{Median\+Filter} with a specified window size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_median_filter_a52a532aba9959e51470f5084a09d05f2}{push\+\_\+val}} (float new\+Value)
+\begin{DoxyCompactList}\small\item\em Adds a new value to the filter window and adjusts the window as needed. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_median_filter_ac81cc5b9aae1ac59aac44748c9ae5e73}{get\+\_\+median}} ()
+\begin{DoxyCompactList}\small\item\em Calculates and returns the median of the current window of values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_median_filter_a6eb649a5b42a75678fb229b06b5e21a4}{print\+\_\+vals}} ()
+\begin{DoxyCompactList}\small\item\em Prints the current values in the filter window to the serial output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_median_filter_a4f37283f8123a1ce5efc326f27fa4d1d}{values}}
+\begin{DoxyCompactList}\small\item\em Stores the last N values to calculate the median. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_median_filter_a3dced434b942a697a72a56938bc41e8f}{window\+Size}}
+\begin{DoxyCompactList}\small\item\em The size of the window to calculate the median over. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a median filter for real-\/time data filtering. 
+
+This class provides methods to add new values to the filter and to compute the median of the current window of values. It\textquotesingle{}s designed to work with floating point numbers, making it suitable for processing a wide range of data types. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_median_filter_a3aa8431e2671689ea1d1215accf0024f}\label{class_median_filter_a3aa8431e2671689ea1d1215accf0024f} 
+\index{MedianFilter@{MedianFilter}!MedianFilter@{MedianFilter}}
+\index{MedianFilter@{MedianFilter}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{MedianFilter()}{MedianFilter()}}
+{\footnotesize\ttfamily Median\+Filter\+::\+Median\+Filter (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{window\+Size }\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_median_filter}{Median\+Filter} with a specified window size. 
+
+Constructs a \doxylink{class_median_filter}{Median\+Filter} object with the specified window size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em window\+Size} & The size of the window over which the median will be calculated.\\
+\hline
+\end{DoxyParams}
+Initializes the internal structures of the \doxylink{class_median_filter}{Median\+Filter} to manage a sliding window of values for median calculation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em window\+Size} & The size of the window over which the median will be calculated. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_median_filter_ac81cc5b9aae1ac59aac44748c9ae5e73}\label{class_median_filter_ac81cc5b9aae1ac59aac44748c9ae5e73} 
+\index{MedianFilter@{MedianFilter}!get\_median@{get\_median}}
+\index{get\_median@{get\_median}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{get\_median()}{get\_median()}}
+{\footnotesize\ttfamily float Median\+Filter\+::get\+\_\+median (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates and returns the median of the current window of values. 
+
+Calculates and returns the median of the values in the filter\textquotesingle{}s window.
+
+\begin{DoxyReturn}{Returns}
+float The median of the values in the current window.
+\end{DoxyReturn}
+This method sorts a copy of the current window of values and computes the median value based on the sorted data.
+
+\begin{DoxyReturn}{Returns}
+float The median of the current window of values. 
+\end{DoxyReturn}
+\Hypertarget{class_median_filter_a6eb649a5b42a75678fb229b06b5e21a4}\label{class_median_filter_a6eb649a5b42a75678fb229b06b5e21a4} 
+\index{MedianFilter@{MedianFilter}!print\_vals@{print\_vals}}
+\index{print\_vals@{print\_vals}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{print\_vals()}{print\_vals()}}
+{\footnotesize\ttfamily void Median\+Filter\+::print\+\_\+vals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints the current values in the filter window to the serial output. 
+
+Prints the current window of values to the serial output.
+
+This method iterates over the values in the window and prints each one to the serial output, prefixed by a dash. \Hypertarget{class_median_filter_a52a532aba9959e51470f5084a09d05f2}\label{class_median_filter_a52a532aba9959e51470f5084a09d05f2} 
+\index{MedianFilter@{MedianFilter}!push\_val@{push\_val}}
+\index{push\_val@{push\_val}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{push\_val()}{push\_val()}}
+{\footnotesize\ttfamily void Median\+Filter\+::push\+\_\+val (\begin{DoxyParamCaption}\item[{float}]{new\+Value }\end{DoxyParamCaption})}
+
+
+
+Adds a new value to the filter window and adjusts the window as needed. 
+
+Adds a new value to the filter\textquotesingle{}s window and removes the oldest value if the window exceeds the specified size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Value} & The new value to be added to the filter window.\\
+\hline
+{\em new\+Value} & The new value to add to the window. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_median_filter_a4f37283f8123a1ce5efc326f27fa4d1d}\label{class_median_filter_a4f37283f8123a1ce5efc326f27fa4d1d} 
+\index{MedianFilter@{MedianFilter}!values@{values}}
+\index{values@{values}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{values}{values}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ Median\+Filter\+::values\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Stores the last N values to calculate the median. 
+
+\Hypertarget{class_median_filter_a3dced434b942a697a72a56938bc41e8f}\label{class_median_filter_a3dced434b942a697a72a56938bc41e8f} 
+\index{MedianFilter@{MedianFilter}!windowSize@{windowSize}}
+\index{windowSize@{windowSize}!MedianFilter@{MedianFilter}}
+\doxysubsubsection{\texorpdfstring{windowSize}{windowSize}}
+{\footnotesize\ttfamily size\+\_\+t Median\+Filter\+::window\+Size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The size of the window to calculate the median over. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{_median_filter_8h}{Median\+Filter.\+h}}\item 
+src/\mbox{\hyperlink{_median_filter_8cpp}{Median\+Filter.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,21 @@
+\doxysection{include/\+Median\+Filter.h File Reference}
+\hypertarget{_median_filter_8h}{}\label{_median_filter_8h}\index{include/MedianFilter.h@{include/MedianFilter.h}}
+
+
+Definition of the \doxylink{class_median_filter}{Median\+Filter} class for filtering values by computing their median.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_median_filter}{Median\+Filter}}
+\begin{DoxyCompactList}\small\item\em Implements a median filter for real-\/time data filtering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Definition of the \doxylink{class_median_filter}{Median\+Filter} class for filtering values by computing their median. 
+
+The \doxylink{class_median_filter}{Median\+Filter} class is useful for smoothing noisy data, particularly in the context of real-\/time sensor readings. It maintains a sliding window of the most recent values and computes the median of the values in this window, providing a filtered output that mitigates short-\/term fluctuations. 

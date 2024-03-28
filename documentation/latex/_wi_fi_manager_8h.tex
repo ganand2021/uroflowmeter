@@ -1,0 +1,52 @@
+\doxysection{include/\+Wi\+Fi\+Manager.h File Reference}
+\hypertarget{_wi_fi_manager_8h}{}\label{_wi_fi_manager_8h}\index{include/WiFiManager.h@{include/WiFiManager.h}}
+
+
+Interface for Wi\+Fi connectivity functions on ESP devices.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Wi\+Fi.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_wi_fi_manager_8h_a05b7722b11a0ccfa435e4883e8ed1eb5}{connect\+\_\+to\+\_\+\+Wi\+Fi}} (const String \&ssid, const String \&password)
+\begin{DoxyCompactList}\small\item\em Attempts to connect the ESP device to a Wi\+Fi network using the provided credentials. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for Wi\+Fi connectivity functions on ESP devices. 
+
+This file declares a function for connecting an ESP device to a specified Wi\+Fi network. It utilizes the Wi\+Fi library to manage the network connection, handling the connection process and providing feedback through the serial interface. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_wi_fi_manager_8h_a05b7722b11a0ccfa435e4883e8ed1eb5}\label{_wi_fi_manager_8h_a05b7722b11a0ccfa435e4883e8ed1eb5} 
+\index{WiFiManager.h@{WiFiManager.h}!connect\_to\_WiFi@{connect\_to\_WiFi}}
+\index{connect\_to\_WiFi@{connect\_to\_WiFi}!WiFiManager.h@{WiFiManager.h}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_WiFi()}{connect\_to\_WiFi()}}
+{\footnotesize\ttfamily void connect\+\_\+to\+\_\+\+Wi\+Fi (\begin{DoxyParamCaption}\item[{const String \&}]{ssid,  }\item[{const String \&}]{password }\end{DoxyParamCaption})}
+
+
+
+Attempts to connect the ESP device to a Wi\+Fi network using the provided credentials. 
+
+This function initiates a connection to a Wi\+Fi network specified by its SSID and password. It will repeatedly attempt to connect until a connection is established, printing progress to the serial monitor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssid} & The SSID (name) of the Wi\+Fi network to connect to. \\
+\hline
+{\em password} & The password for the Wi\+Fi network.\\
+\hline
+\end{DoxyParams}
+Attempts to connect the ESP device to a Wi\+Fi network using the provided credentials.
+
+Initiates a Wi\+Fi connection using the provided SSID and password, printing connection attempts and status to the serial console. Upon successful connection, it sets the {\ttfamily is\+Connected} flag to true and prints the device\textquotesingle{}s assigned IP address.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssid} & The SSID of the Wi\+Fi network to connect to. \\
+\hline
+{\em password} & The password for the specified Wi\+Fi network. \\
+\hline
+\end{DoxyParams}

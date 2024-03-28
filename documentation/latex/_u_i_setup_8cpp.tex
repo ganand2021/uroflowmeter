@@ -1,0 +1,62 @@
+\doxysection{src/\+UISetup.cpp File Reference}
+\hypertarget{_u_i_setup_8cpp}{}\label{_u_i_setup_8cpp}\index{src/UISetup.cpp@{src/UISetup.cpp}}
+{\ttfamily \#include "{}UISetup.\+h"{}}\newline
+{\ttfamily \#include "{}Wi\+Fi\+Manager.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f}{setup\+\_\+ui}} ()
+\begin{DoxyCompactList}\small\item\em Initializes and configures the user interface for Wi\+Fi setup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_u_i_setup_8cpp_af714c2132c62a69b96c0e2ffe338944e}{ssid\+\_\+text}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_u_i_setup_8cpp_a02e520e9de360b7d35f84e0eeab5e2da}{password\+\_\+text}}
+\begin{DoxyCompactList}\small\item\em Text field control IDs for SSID and password input. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8}{HOSTNAME}}
+\begin{DoxyCompactList}\small\item\em Hostname for the Wi\+Fi AP and ESPUI server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f}\label{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f} 
+\index{UISetup.cpp@{UISetup.cpp}!setup\_ui@{setup\_ui}}
+\index{setup\_ui@{setup\_ui}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{setup\_ui()}{setup\_ui()}}
+{\footnotesize\ttfamily void setup\+\_\+ui (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes and configures the user interface for Wi\+Fi setup. 
+
+Sets up the user interface using the ESPUI library.
+
+This function configures the ESP device to operate as a Wi\+Fi access point and initializes a web-\/based interface for network configuration. It provides fields for SSID and password input and a connect button to initiate the connection process. The UI is built using the ESPUI library and leverages callbacks for interactive elements. 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8}\label{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8} 
+\index{UISetup.cpp@{UISetup.cpp}!HOSTNAME@{HOSTNAME}}
+\index{HOSTNAME@{HOSTNAME}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{HOSTNAME}{HOSTNAME}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} HOSTNAME\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Hostname for the Wi\+Fi AP and ESPUI server. 
+
+Hostname for the Wi\+Fi AP and ESPUI server. \Hypertarget{_u_i_setup_8cpp_a02e520e9de360b7d35f84e0eeab5e2da}\label{_u_i_setup_8cpp_a02e520e9de360b7d35f84e0eeab5e2da} 
+\index{UISetup.cpp@{UISetup.cpp}!password\_text@{password\_text}}
+\index{password\_text@{password\_text}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{password\_text}{password\_text}}
+{\footnotesize\ttfamily uint16\+\_\+t password\+\_\+text}
+
+
+
+Text field control IDs for SSID and password input. 
+
+\Hypertarget{_u_i_setup_8cpp_af714c2132c62a69b96c0e2ffe338944e}\label{_u_i_setup_8cpp_af714c2132c62a69b96c0e2ffe338944e} 
+\index{UISetup.cpp@{UISetup.cpp}!ssid\_text@{ssid\_text}}
+\index{ssid\_text@{ssid\_text}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{ssid\_text}{ssid\_text}}
+{\footnotesize\ttfamily uint16\+\_\+t ssid\+\_\+text\hspace{0.3cm}{\ttfamily [extern]}}
+

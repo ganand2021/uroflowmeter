@@ -1,0 +1,81 @@
+\doxysection{src/\+Load\+Cell.cpp File Reference}
+\hypertarget{_load_cell_8cpp}{}\label{_load_cell_8cpp}\index{src/LoadCell.cpp@{src/LoadCell.cpp}}
+{\ttfamily \#include "{}Load\+Cell.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_load_cell_8cpp_a6000449864691a5e74750bda0537e8da}{scale\+\_\+setup}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the load cell sensor and configures it for operation. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_load_cell_8cpp_adbdb233f6c0146ec3b54681143f4082c}{get\+\_\+scale\+\_\+weight}} ()
+\begin{DoxyCompactList}\small\item\em Fetches the current weight from the load cell. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_load_cell_8cpp_a3cdd9456365d866e45a498b31d84c2cb}{get\+\_\+flow\+\_\+rate}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the current flow rate based on the weight change over time. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_flow_rate_result}{Flow\+Rate\+Result}} \mbox{\hyperlink{_load_cell_8cpp_a7152bd2edbcf11ba2710a956f1481f27}{get\+\_\+flow\+\_\+info}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the flow rate and volume based on the current and previous weight measurements. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_load_cell_8cpp_a7152bd2edbcf11ba2710a956f1481f27}\label{_load_cell_8cpp_a7152bd2edbcf11ba2710a956f1481f27} 
+\index{LoadCell.cpp@{LoadCell.cpp}!get\_flow\_info@{get\_flow\_info}}
+\index{get\_flow\_info@{get\_flow\_info}!LoadCell.cpp@{LoadCell.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_flow\_info()}{get\_flow\_info()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_flow_rate_result}{Flow\+Rate\+Result}} get\+\_\+flow\+\_\+info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the flow rate and volume based on the current and previous weight measurements. 
+
+Calculates and returns flow rate and volume information.
+
+This function calculates the flow rate using the weight difference and the elapsed time since the last measurement. It also calculates the total volume based on the current weight. The calculation assumes a specific gravity of the liquid to convert weight to volume.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_flow_rate_result}{Flow\+Rate\+Result} A struct containing the calculated flow rate and volume. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8cpp_a3cdd9456365d866e45a498b31d84c2cb}\label{_load_cell_8cpp_a3cdd9456365d866e45a498b31d84c2cb} 
+\index{LoadCell.cpp@{LoadCell.cpp}!get\_flow\_rate@{get\_flow\_rate}}
+\index{get\_flow\_rate@{get\_flow\_rate}!LoadCell.cpp@{LoadCell.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_flow\_rate()}{get\_flow\_rate()}}
+{\footnotesize\ttfamily float get\+\_\+flow\+\_\+rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calculates the current flow rate based on the weight change over time. 
+
+Calculates and returns the current flow rate.
+
+This function uses the difference in weight and time to calculate the flow rate.
+
+\begin{DoxyReturn}{Returns}
+float The current flow rate. If the calculated flow rate is negative, 0.\+0 is returned. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8cpp_adbdb233f6c0146ec3b54681143f4082c}\label{_load_cell_8cpp_adbdb233f6c0146ec3b54681143f4082c} 
+\index{LoadCell.cpp@{LoadCell.cpp}!get\_scale\_weight@{get\_scale\_weight}}
+\index{get\_scale\_weight@{get\_scale\_weight}!LoadCell.cpp@{LoadCell.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_scale\_weight()}{get\_scale\_weight()}}
+{\footnotesize\ttfamily float get\+\_\+scale\+\_\+weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fetches the current weight from the load cell. 
+
+Returns the current weight measured by the scale.
+
+This function reads multiple weight samples, filters them through a median filter, and returns the median as the current weight.
+
+\begin{DoxyReturn}{Returns}
+float The current weight measured by the load cell. If the weight is negative, 0.\+0 is returned. 
+\end{DoxyReturn}
+\Hypertarget{_load_cell_8cpp_a6000449864691a5e74750bda0537e8da}\label{_load_cell_8cpp_a6000449864691a5e74750bda0537e8da} 
+\index{LoadCell.cpp@{LoadCell.cpp}!scale\_setup@{scale\_setup}}
+\index{scale\_setup@{scale\_setup}!LoadCell.cpp@{LoadCell.cpp}}
+\doxysubsubsection{\texorpdfstring{scale\_setup()}{scale\_setup()}}
+{\footnotesize\ttfamily void scale\+\_\+setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the load cell sensor and configures it for operation. 
+
+Sets up the scale hardware and initializes communication.
+
+This function starts the Wire library, sets the clock speed, and initializes the NAU7802 scale. It also sets the calibration factor and calibrates the Analog Front End (AFE) of the NAU7802. 

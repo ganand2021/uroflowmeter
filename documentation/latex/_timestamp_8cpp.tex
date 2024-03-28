@@ -1,0 +1,28 @@
+\doxysection{src/\+Timestamp.cpp File Reference}
+\hypertarget{_timestamp_8cpp}{}\label{_timestamp_8cpp}\index{src/Timestamp.cpp@{src/Timestamp.cpp}}
+{\ttfamily \#include "{}Timestamp.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+String \mbox{\hyperlink{_timestamp_8cpp_ad17c9b2818563d00d3184f8d54a94d51}{get\+\_\+formatted\+\_\+date\+\_\+time}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves and formats the current date and time from the NTP server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_timestamp_8cpp_ad17c9b2818563d00d3184f8d54a94d51}\label{_timestamp_8cpp_ad17c9b2818563d00d3184f8d54a94d51} 
+\index{Timestamp.cpp@{Timestamp.cpp}!get\_formatted\_date\_time@{get\_formatted\_date\_time}}
+\index{get\_formatted\_date\_time@{get\_formatted\_date\_time}!Timestamp.cpp@{Timestamp.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_formatted\_date\_time()}{get\_formatted\_date\_time()}}
+{\footnotesize\ttfamily String get\+\_\+formatted\+\_\+date\+\_\+time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves and formats the current date and time from the NTP server. 
+
+Gets the current date and time in ISO 8601 format.
+
+This function fetches the current epoch time from the NTP server, breaks it down into its component year, month, day, hour, minute, and second, and then formats these components into a string according to the ISO 8601 standard. This format is widely used for data exchange and ensures that the timestamp is easily readable and unambiguous.
+
+\begin{DoxyReturn}{Returns}
+String A string representing the current date and time in ISO 8601 format. 
+\end{DoxyReturn}

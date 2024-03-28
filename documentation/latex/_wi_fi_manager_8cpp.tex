@@ -1,0 +1,51 @@
+\doxysection{src/\+Wi\+Fi\+Manager.cpp File Reference}
+\hypertarget{_wi_fi_manager_8cpp}{}\label{_wi_fi_manager_8cpp}\index{src/WiFiManager.cpp@{src/WiFiManager.cpp}}
+{\ttfamily \#include "{}Wi\+Fi\+Manager.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_wi_fi_manager_8cpp_a05b7722b11a0ccfa435e4883e8ed1eb5}{connect\+\_\+to\+\_\+\+Wi\+Fi}} (const String \&ssid, const String \&password)
+\begin{DoxyCompactList}\small\item\em Connects to a Wi\+Fi network with the specified SSID and password. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_wi_fi_manager_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2}{is\+Connected}}
+\begin{DoxyCompactList}\small\item\em Tracks the connection status of the Wi\+Fi network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_wi_fi_manager_8cpp_a05b7722b11a0ccfa435e4883e8ed1eb5}\label{_wi_fi_manager_8cpp_a05b7722b11a0ccfa435e4883e8ed1eb5} 
+\index{WiFiManager.cpp@{WiFiManager.cpp}!connect\_to\_WiFi@{connect\_to\_WiFi}}
+\index{connect\_to\_WiFi@{connect\_to\_WiFi}!WiFiManager.cpp@{WiFiManager.cpp}}
+\doxysubsubsection{\texorpdfstring{connect\_to\_WiFi()}{connect\_to\_WiFi()}}
+{\footnotesize\ttfamily void connect\+\_\+to\+\_\+\+Wi\+Fi (\begin{DoxyParamCaption}\item[{const String \&}]{ssid,  }\item[{const String \&}]{password }\end{DoxyParamCaption})}
+
+
+
+Connects to a Wi\+Fi network with the specified SSID and password. 
+
+Attempts to connect the ESP device to a Wi\+Fi network using the provided credentials.
+
+Initiates a Wi\+Fi connection using the provided SSID and password, printing connection attempts and status to the serial console. Upon successful connection, it sets the {\ttfamily is\+Connected} flag to true and prints the device\textquotesingle{}s assigned IP address.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssid} & The SSID of the Wi\+Fi network to connect to. \\
+\hline
+{\em password} & The password for the specified Wi\+Fi network. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_wi_fi_manager_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2}\label{_wi_fi_manager_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2} 
+\index{WiFiManager.cpp@{WiFiManager.cpp}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!WiFiManager.cpp@{WiFiManager.cpp}}
+\doxysubsubsection{\texorpdfstring{isConnected}{isConnected}}
+{\footnotesize\ttfamily bool is\+Connected\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Tracks the connection status of the Wi\+Fi network. 
+
+Tracks the connection status of the Wi\+Fi network. 
