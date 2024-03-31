@@ -30,6 +30,7 @@ WiFiClientSecure secure_client; ///< Secure client for WiFi connections.
 PubSubClient mqtt_client(secure_client); ///< MQTT client instance using the secure WiFi client.
 DynamicJsonDocument pub_doc(256); ///< JSON document for publishing messages, with a buffer size of 256 bytes.
 const char* HOSTNAME = "ESP-WiFi-GUI"; ///< Hostname for the device.
+const char *WSPASS = "1234567890"; ///< Password for web server access.
 
 // NTP Configuration
 WiFiUDP ntp_udp; ///< UDP instance for NTP communication.
@@ -133,6 +134,7 @@ void loop() {
     if ((flow_rate > flow_rate_threshold) && (current_time - last_active_time <= 10000) ){
       pub_doc["flow_rate"] = flow_rate;
       pub_doc["volume"] = volume;
+      pub_doc["timestamp"] = current_time;
       publish_string = "";
       serializeJson(pub_doc, publish_string);
       mqtt_client.publish(PUBLISHER_TOPIC, publish_string.c_str());

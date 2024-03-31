@@ -3,6 +3,7 @@
 
 extern uint16_t ssid_text, password_text; ///< Text field control IDs for SSID and password input.
 extern const char* HOSTNAME; ///< Hostname for the WiFi AP and ESPUI server.
+extern const char* WSPASS;
 
 /**
  * @brief Initializes and configures the user interface for WiFi setup.
@@ -15,7 +16,7 @@ extern const char* HOSTNAME; ///< Hostname for the WiFi AP and ESPUI server.
 void setup_ui() {
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(IPAddress(192, 168, 1, 1), IPAddress(192, 168, 1, 1), IPAddress(255, 255, 255, 0));
-  WiFi.softAP(HOSTNAME);
+  WiFi.softAP(HOSTNAME, WSPASS);
 
   ESPUI.setVerbosity(Verbosity::Verbose);
 
