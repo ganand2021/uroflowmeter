@@ -18,6 +18,7 @@ extern NAU7802 my_scale; ///< Instance of the NAU7802 class to communicate with 
 
 extern float previous_weight; ///< Stores the last measured weight, used to calculate flow rate.
 extern unsigned long previous_timestamp; ///< Stores the last timestamp of measurement, used in flow rate calculation.
+const int N_SAMPLES = 60;
 
 /**
  * @struct FlowRateResult

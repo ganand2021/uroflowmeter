@@ -32,14 +32,19 @@ void scale_setup() {
  * @return float The current weight measured by the load cell. If the weight is negative, 0.0 is returned.
  */
 float get_scale_weight() {
-    MedianFilter load_filter(16); // Median filter with a window of 16 samples
-    for (size_t i = 0; i < 16; i++)
-        load_filter.push_val((float)my_scale.getWeight()); // Push weight readings into the filter
+    // MedianFilter load_filter(16); // Median filter with a window of 16 samples
+    // for (size_t i = 0; i < 16; i++)
+    //     load_filter.push_val((float)my_scale.getWeight(false, 4)); // Push weight readings into the filter
 
-    float result = load_filter.get_median();
+    // float result = load_filter.get_median();
+    // if (result < 0)
+    //     return 0.0; // Return 0 if negative weight
+    // return load_filter.get_median(); // Return the median weight
+
+    float result = my_scale.getWeight(false, 64);
     if (result < 0)
-        return 0.0; // Return 0 if negative weight
-    return load_filter.get_median(); // Return the median weight
+        return 0.0;
+    return result;
 }
 
 /**
