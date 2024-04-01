@@ -12,6 +12,7 @@
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
+#include <ArduinoNvs.h>
 #include "WiFiManager.h"
 #include "AWSManager.h"
 #include "UISetup.h"
@@ -42,6 +43,7 @@ NAU7802 my_scale; ///< Instance of the NAU7802 load cell amplifier.
 // System state variables
 bool isConnected = false;  ///< Connection status flag.
 uint16_t ssid_text, password_text;  ///< Variables for storing SSID and password inputs.
+String global_ssid, global_password;
 float previous_weight = 0;  ///< Previous weight measured by the scale.
 unsigned long previous_timestamp = 0;  ///< Timestamp of the previous measurement.
 volatile float flow_rate = 0.0;  ///< Current flow rate.
@@ -120,6 +122,25 @@ String get_time_now() {
   return formattedTime;
 }
 
+bool connect_wifi_nvs() {
+  String ssid = NVS.getString("wifi_ssid");
+  String password = NVS.getString("wifi_pass");
+
+  if (!ssid.isEmpty() && !password.isEmpty()) {
+    WiFi.begin(ssid.c_str(), password.c_str());
+    unsigned long startAttemptTime = millis();
+
+    while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < 5000) {
+      delay(100);
+    }
+
+    isConnected = WiFi.status() == WL_CONNECTED;
+    return isConnected;
+  }
+  isConnected = false;
+  return isConnected;
+}
+
 
 /**
  * @brief Setup function for the Arduino sketch.
@@ -130,8 +151,11 @@ String get_time_now() {
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting...Multicore....");
+  NVS.begin();
+
   led_setup();
   // Set up the user interface
+  connect_wifi_nvs();
   setup_ui();
 
   // Keep trying to connect to WiFi until successful
@@ -139,6 +163,8 @@ void setup() {
     Serial.print(".");
     delay(500);
   }
+  // This should be called after a successful connection.
+
 
   // Once WiFi is connected, establish connection to AWS IoT Core
   connect_to_aws();

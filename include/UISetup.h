@@ -12,6 +12,7 @@
 #define UISetup_h
 
 #include <ESPUI.h>
+#include <ArduinoNvs.h>
 
 /**
  * @brief Sets up the user interface using the ESPUI library.

@@ -4,6 +4,13 @@
 extern uint16_t ssid_text, password_text; ///< Text field control IDs for SSID and password input.
 extern const char* HOSTNAME; ///< Hostname for the WiFi AP and ESPUI server.
 extern const char* WSPASS;
+extern String global_ssid;
+extern String global_password;
+
+void save_wifi_credentials_nvs(String ssid, String password) {
+  NVS.setString("wifi_ssid", ssid);
+  NVS.setString("wifi_pass", password);
+}
 
 /**
  * @brief Initializes and configures the user interface for WiFi setup.
@@ -30,9 +37,10 @@ void setup_ui() {
 
   ESPUI.addControl(ControlType::Button, "Connect", "Connect", ControlColor::Emerald, Control::noParent, [](Control *sender, int type) {
     if (type == B_UP) {
-      String global_ssid = ESPUI.getControl(ssid_text)->value;
-      String global_password = ESPUI.getControl(password_text)->value;
+      global_ssid = ESPUI.getControl(ssid_text)->value;
+      global_password = ESPUI.getControl(password_text)->value;
       connect_to_WiFi(global_ssid, global_password);
+      save_wifi_credentials_nvs(global_ssid, global_password);
     }
   });
 
