@@ -66,6 +66,9 @@ float volume_to_publish = 0.0;
 float temp_flow_rate = 0.0;
 float temp_volume = 0.0;
 volatile unsigned long first_time_below_threshold = 0;
+int document_counter = 0;
+volatile int above_threshold_count = 0;
+const int REQUIRED_ABOVE_THRESHOLD_COUNT = 3;
 
 const long  gmtOffset_sec = -5 * 3600; // New York is UTC-5
 const int   daylightOffset_sec = 3600; // DST offset
@@ -220,30 +223,19 @@ void loop() {
   battery_handler();
   current_time = millis();
   if (mqtt_client.connected()) {
-    // if ((flow_rate > flow_rate_threshold) && (current_time - last_active_time <= 10000) ){
-    //   pub_doc["flow_rate"] = flow_rate;
-    //   pub_doc["volume"] = volume;
-    //   pub_doc["timestamp"] = current_time;
-    //   publish_string = "";
-    //   serializeJson(pub_doc, publish_string);
-    //   mqtt_client.publish(PUBLISHER_TOPIC, publish_string.c_str());
-    //   Serial.println(publish_string);
-    //   pub_doc.clear();
-    //   toggleBlueLED(); // Blink blue LED while sending data
-    // } else if (current_time - last_active_time > 10000) {
-    //   // 10 seconds of inactivity
-    //   flow_rate = 0.0; // Reset flow rate to signify no flow
-    // }
 
     if (flow_rate >= FLOW_RATE_THRESHOLD) {
-      last_time_above_threshold = current_time;  // Update the time when flow was above threshold
-      is_sending_data = true;
-      first_time_below_threshold = 0;
-    } else if (first_time_below_threshold == 0)
-      first_time_below_threshold = current_time;
-
-    Serial.print("is_sending_data: ");
-    Serial.println(is_sending_data);
+      above_threshold_count++;
+      if (above_threshold_count >= REQUIRED_ABOVE_THRESHOLD_COUNT) {
+        last_time_above_threshold = current_time;  // Update the time when flow was above threshold
+        is_sending_data = true;
+        first_time_below_threshold = 0;
+      }
+    } else {
+      above_threshold_count = 0;
+      if (first_time_below_threshold == 0)
+        first_time_below_threshold = current_time;
+    }
 
     if (is_sending_data) {
       flow_rate_to_publish = (flow_rate>=FLOW_RATE_THRESHOLD) ? flow_rate : 0.0;
@@ -251,6 +243,7 @@ void loop() {
       pub_doc["flow_rate"] = flow_rate_to_publish;
       pub_doc["volume"] = volume;
       pub_doc["device_pub_id"] = device_pub_id;
+      pub_doc["document_state"] = document_counter++;
       publish_string = "";
       serializeJson(pub_doc, publish_string);
       mqtt_client.publish(PUBLISHER_TOPIC, publish_string.c_str());
@@ -259,8 +252,10 @@ void loop() {
       toggleBlueLED();
     }
 
-    if (first_time_below_threshold > 0 && (current_time - last_time_above_threshold >= SEND_DATA_DURATION))
+    if (first_time_below_threshold > 0 && (current_time - last_time_above_threshold >= SEND_DATA_DURATION)) {
       is_sending_data = false;
+      document_counter = 0;
+    }
 
   } else {
     // Attempt to reconnect to AWS IoT Core if the connection is lost
