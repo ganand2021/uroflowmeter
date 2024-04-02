@@ -72,6 +72,10 @@ const int   daylightOffset_sec = 3600; // DST offset
 
 Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(1, PIN_NEOPIXEL, 0, TYPE_GRB);
 
+static char device_pub_id[50];
+uint8_t mac[6];
+char mac_suffix[13];
+
 /**
  * @brief Initializes LEDs as output and sets an initial state.
  */
@@ -158,6 +162,12 @@ bool connect_wifi_nvs() {
   return isConnected;
 }
 
+void device_publish_id() {
+  WiFi.macAddress(mac);
+  sprintf(mac_suffix, "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+  snprintf(device_pub_id, 50, "FlowMetrics-Thing%s", mac_suffix);
+}
+
 
 /**
  * @brief Setup function for the Arduino sketch.
@@ -182,7 +192,6 @@ void setup() {
   }
   // This should be called after a successful connection.
 
-
   // Once WiFi is connected, establish connection to AWS IoT Core
   connect_to_aws();
   scale_setup();
@@ -194,6 +203,8 @@ void setup() {
   xTaskCreatePinnedToCore(
     measureFlowRateTask, "MeasureFlowRate", 10000, NULL, 1, NULL, 0);
   
+  device_publish_id();
+
   digitalWrite(RED_LED, LOW);
   digitalWrite(GREEN_LED, HIGH);
   strip.setLedColorData(0, 0, 255, 0);
@@ -239,6 +250,7 @@ void loop() {
       pub_doc["tstamp"] = get_time_now();
       pub_doc["flow_rate"] = flow_rate_to_publish;
       pub_doc["volume"] = volume;
+      pub_doc["device_pub_id"] = device_pub_id;
       publish_string = "";
       serializeJson(pub_doc, publish_string);
       mqtt_client.publish(PUBLISHER_TOPIC, publish_string.c_str());
