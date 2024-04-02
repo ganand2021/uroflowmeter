@@ -65,6 +65,7 @@ float flow_rate_to_publish = 0.0;
 float volume_to_publish = 0.0;
 float temp_flow_rate = 0.0;
 float temp_volume = 0.0;
+volatile unsigned long first_time_below_threshold = 0;
 
 const long  gmtOffset_sec = -5 * 3600; // New York is UTC-5
 const int   daylightOffset_sec = 3600; // DST offset
@@ -133,14 +134,20 @@ String get_time_now() {
 }
 
 bool connect_wifi_nvs() {
+  WiFi.mode(WIFI_AP_STA);
   String ssid = NVS.getString("wifi_ssid");
   String password = NVS.getString("wifi_pass");
+
+  Serial.print("Saved SSID:");
+  Serial.println(ssid);
+  Serial.print("Saved password:");
+  Serial.println(password);
 
   if (!ssid.isEmpty() && !password.isEmpty()) {
     WiFi.begin(ssid.c_str(), password.c_str());
     unsigned long startAttemptTime = millis();
 
-    while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < 5000) {
+    while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < 10000) {
       delay(100);
     }
 
@@ -217,10 +224,15 @@ void loop() {
     //   flow_rate = 0.0; // Reset flow rate to signify no flow
     // }
 
-    if (flow_rate > FLOW_RATE_THRESHOLD) {
-      last_time_above_threshold = millis();  // Update the time when flow was above threshold
+    if (flow_rate >= FLOW_RATE_THRESHOLD) {
+      last_time_above_threshold = current_time;  // Update the time when flow was above threshold
       is_sending_data = true;
-    }
+      first_time_below_threshold = 0;
+    } else if (first_time_below_threshold == 0)
+      first_time_below_threshold = current_time;
+
+    Serial.print("is_sending_data: ");
+    Serial.println(is_sending_data);
 
     if (is_sending_data) {
       flow_rate_to_publish = (flow_rate>=FLOW_RATE_THRESHOLD) ? flow_rate : 0.0;
@@ -235,7 +247,7 @@ void loop() {
       toggleBlueLED();
     }
 
-    if (current_time - last_time_above_threshold >= SEND_DATA_DURATION)
+    if (first_time_below_threshold > 0 && (current_time - last_time_above_threshold >= SEND_DATA_DURATION))
       is_sending_data = false;
 
   } else {

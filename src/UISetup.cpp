@@ -21,7 +21,7 @@ void save_wifi_credentials_nvs(String ssid, String password) {
  * and leverages callbacks for interactive elements.
  */
 void setup_ui() {
-  WiFi.mode(WIFI_AP);
+  WiFi.mode(WIFI_AP_STA);
   WiFi.softAPConfig(IPAddress(192, 168, 1, 1), IPAddress(192, 168, 1, 1), IPAddress(255, 255, 255, 0));
   WiFi.softAP(HOSTNAME, WSPASS);
 
