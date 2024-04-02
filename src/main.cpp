@@ -13,6 +13,7 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <ArduinoNvs.h>
+#include <Freenove_WS2812_Lib_for_ESP32.h>
 #include "WiFiManager.h"
 #include "AWSManager.h"
 #include "UISetup.h"
@@ -68,6 +69,8 @@ float temp_volume = 0.0;
 const long  gmtOffset_sec = -5 * 3600; // New York is UTC-5
 const int   daylightOffset_sec = 3600; // DST offset
 
+Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(1, PIN_NEOPIXEL, 0, TYPE_GRB);
+
 /**
  * @brief Initializes LEDs as output and sets an initial state.
  */
@@ -77,6 +80,11 @@ void led_setup() {
   pinMode(BLUE_LED, OUTPUT);
   pinMode(CHARGING_LED, OUTPUT);
   digitalWrite(RED_LED, HIGH);
+
+  strip.begin();
+	strip.setBrightness(10);
+  strip.setLedColorData(0, 255, 0, 0);
+  strip.show();
 }
 
 /**
@@ -85,6 +93,8 @@ void led_setup() {
 void toggleBlueLED() {
   blueLedState = !blueLedState;
   digitalWrite(BLUE_LED, blueLedState ? HIGH : LOW);
+  strip.setLedColorData(0, 0, 0, 255*(blueLedState ? HIGH : LOW));
+  strip.show();
 }
 
 /**
@@ -179,6 +189,8 @@ void setup() {
   
   digitalWrite(RED_LED, LOW);
   digitalWrite(GREEN_LED, HIGH);
+  strip.setLedColorData(0, 0, 255, 0);
+  strip.show();
 }
 
 /**
@@ -230,9 +242,13 @@ void loop() {
     // Attempt to reconnect to AWS IoT Core if the connection is lost
     digitalWrite(RED_LED, HIGH);
     digitalWrite(GREEN_LED, LOW);
+    strip.setLedColorData(0, 255, 0, 0);
+    strip.show();
     connect_to_aws();
     digitalWrite(GREEN_LED, HIGH);
     digitalWrite(RED_LED, LOW);
+    strip.setLedColorData(0, 0, 255, 0);
+    strip.show();
   }
   delay(200); // Main loop delay
 }
