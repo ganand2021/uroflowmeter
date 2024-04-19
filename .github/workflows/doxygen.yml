@@ -1,0 +1,31 @@
+name: Generate Doxygen Documentation
+
+on:
+  push:
+    branches:
+      - main  # Set this to your default branch
+  pull_request:
+    branches:
+      - main  # Set this to your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Ensures all tags/branches are fetched
+
+    - name: Install Doxygen
+      run: sudo apt-get install doxygen
+
+    - name: Generate Documentation
+      run: doxygen Doxyfile
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./documentation/html  # Specify the output directory from Doxygen
+        keep_files: true  # Set to true to retain existing files on gh-pages branch
