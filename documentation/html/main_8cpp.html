@@ -88,6 +88,8 @@ $(function() {
 <code>#include &lt;WiFiClientSecure.h&gt;</code><br />
 <code>#include &lt;PubSubClient.h&gt;</code><br />
 <code>#include &lt;ArduinoJson.h&gt;</code><br />
+<code>#include &lt;ArduinoNvs.h&gt;</code><br />
+<code>#include &lt;Freenove_WS2812_Lib_for_ESP32.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="_wi_fi_manager_8h_source.html">WiFiManager.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_a_w_s_manager_8h_source.html">AWSManager.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_u_i_setup_8h_source.html">UISetup.h</a>&quot;</code><br />
@@ -98,12 +100,12 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a59b7e2d7374eb07497234a32456f6e35" id="r_a59b7e2d7374eb07497234a32456f6e35"><td class="memItemLeft" align="right" valign="top">PubSubClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59b7e2d7374eb07497234a32456f6e35">mqtt_client</a> (<a class="el" href="_a_w_s_manager_8cpp.html#a9f497dfb17a59466e58e1b1a4ae34ee3">secure_client</a>)</td></tr>
-<tr class="memdesc:a59b7e2d7374eb07497234a32456f6e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT client instance using the secure WiFi client.  <br /></td></tr>
+<tr class="memdesc:a59b7e2d7374eb07497234a32456f6e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">MQTT client using the secure WiFi client.  <br /></td></tr>
 <tr class="separator:a59b7e2d7374eb07497234a32456f6e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9c56dfe5d67aab23f66e5fba08c01a8" id="r_ac9c56dfe5d67aab23f66e5fba08c01a8"><td class="memItemLeft" align="right" valign="top">DynamicJsonDocument&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9c56dfe5d67aab23f66e5fba08c01a8">pub_doc</a> (256)</td></tr>
-<tr class="memdesc:ac9c56dfe5d67aab23f66e5fba08c01a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON document for publishing messages, with a buffer size of 256 bytes.  <br /></td></tr>
+<tr class="memdesc:ac9c56dfe5d67aab23f66e5fba08c01a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON document for publishing MQTT messages.  <br /></td></tr>
 <tr class="separator:ac9c56dfe5d67aab23f66e5fba08c01a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95ff6936caea1735195051a8f55b78fb" id="r_a95ff6936caea1735195051a8f55b78fb"><td class="memItemLeft" align="right" valign="top">NTPClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95ff6936caea1735195051a8f55b78fb">time_client</a> (<a class="el" href="#a7f86660350f23d81b7d8bd36f61a4778">ntp_udp</a>, <a class="el" href="_timestamp_8h.html#a751e3f85cd240e89d390d18996089cd0">NTP_SERVER</a>)</td></tr>
+<tr class="memitem:a95ff6936caea1735195051a8f55b78fb" id="r_a95ff6936caea1735195051a8f55b78fb"><td class="memItemLeft" align="right" valign="top">NTPClient&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95ff6936caea1735195051a8f55b78fb">time_client</a> (<a class="el" href="_timestamp_8h.html#a7f86660350f23d81b7d8bd36f61a4778">ntp_udp</a>, <a class="el" href="_timestamp_8h.html#a751e3f85cd240e89d390d18996089cd0">NTP_SERVER</a>)</td></tr>
 <tr class="memdesc:a95ff6936caea1735195051a8f55b78fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">NTP client for time synchronization.  <br /></td></tr>
 <tr class="separator:a95ff6936caea1735195051a8f55b78fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad61bd19de422f745c4f8706997898625" id="r_ad61bd19de422f745c4f8706997898625"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad61bd19de422f745c4f8706997898625">led_setup</a> ()</td></tr>
@@ -115,6 +117,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a3c891c9ab1dc7c4b07aa8662cf40fc9a" id="r_a3c891c9ab1dc7c4b07aa8662cf40fc9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c891c9ab1dc7c4b07aa8662cf40fc9a">measureFlowRateTask</a> (void *parameter)</td></tr>
 <tr class="memdesc:a3c891c9ab1dc7c4b07aa8662cf40fc9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task function to continuously measure the flow rate.  <br /></td></tr>
 <tr class="separator:a3c891c9ab1dc7c4b07aa8662cf40fc9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c4a4ac6941ef539de5cc5ab8c130dd" id="r_a77c4a4ac6941ef539de5cc5ab8c130dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77c4a4ac6941ef539de5cc5ab8c130dd">battery_handler</a> ()</td></tr>
+<tr class="separator:a77c4a4ac6941ef539de5cc5ab8c130dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cde5af64cca80e906db61342798163b" id="r_a8cde5af64cca80e906db61342798163b"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cde5af64cca80e906db61342798163b">get_time_now</a> ()</td></tr>
+<tr class="separator:a8cde5af64cca80e906db61342798163b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8150b927c771e10ba4e6947fbc97411" id="r_ae8150b927c771e10ba4e6947fbc97411"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8150b927c771e10ba4e6947fbc97411">connect_wifi_nvs</a> ()</td></tr>
+<tr class="separator:ae8150b927c771e10ba4e6947fbc97411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbce9552bd27a769a0d218955116bc44" id="r_afbce9552bd27a769a0d218955116bc44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbce9552bd27a769a0d218955116bc44">device_publish_id</a> ()</td></tr>
+<tr class="separator:afbce9552bd27a769a0d218955116bc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup function for the Arduino sketch.  <br /></td></tr>
 <tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,7 +140,7 @@ Variables</h2></td></tr>
 <tr class="separator:a8342cade79877346fa253e521b994e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5903a088e38cc614c92881ac59af81c4" id="r_a5903a088e38cc614c92881ac59af81c4"><td class="memItemLeft" align="right" valign="top">const byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5903a088e38cc614c92881ac59af81c4">BLUE_LED</a> = 12</td></tr>
 <tr class="separator:a5903a088e38cc614c92881ac59af81c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af561bb7820311bd027c2e3293bae0e35" id="r_af561bb7820311bd027c2e3293bae0e35"><td class="memItemLeft" align="right" valign="top">const byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af561bb7820311bd027c2e3293bae0e35">CHARGING_LED</a> = 12</td></tr>
+<tr class="memitem:af561bb7820311bd027c2e3293bae0e35" id="r_af561bb7820311bd027c2e3293bae0e35"><td class="memItemLeft" align="right" valign="top">const byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af561bb7820311bd027c2e3293bae0e35">CHARGING_LED</a> = 14</td></tr>
 <tr class="separator:af561bb7820311bd027c2e3293bae0e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f497dfb17a59466e58e1b1a4ae34ee3" id="r_a9f497dfb17a59466e58e1b1a4ae34ee3"><td class="memItemLeft" align="right" valign="top">WiFiClientSecure&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f497dfb17a59466e58e1b1a4ae34ee3">secure_client</a></td></tr>
 <tr class="memdesc:a9f497dfb17a59466e58e1b1a4ae34ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Secure client for WiFi connections.  <br /></td></tr>
@@ -138,55 +148,157 @@ Variables</h2></td></tr>
 <tr class="memitem:ac4fbed25c9d82b26a56813f4892022d8" id="r_ac4fbed25c9d82b26a56813f4892022d8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4fbed25c9d82b26a56813f4892022d8">HOSTNAME</a> = &quot;ESP-WiFi-GUI&quot;</td></tr>
 <tr class="memdesc:ac4fbed25c9d82b26a56813f4892022d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hostname for the device.  <br /></td></tr>
 <tr class="separator:ac4fbed25c9d82b26a56813f4892022d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e861b7829aa2e5139b4ffe55c85395" id="r_a67e861b7829aa2e5139b4ffe55c85395"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67e861b7829aa2e5139b4ffe55c85395">WSPASS</a> = &quot;1234567890&quot;</td></tr>
+<tr class="memdesc:a67e861b7829aa2e5139b4ffe55c85395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Web server access password.  <br /></td></tr>
+<tr class="separator:a67e861b7829aa2e5139b4ffe55c85395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f86660350f23d81b7d8bd36f61a4778" id="r_a7f86660350f23d81b7d8bd36f61a4778"><td class="memItemLeft" align="right" valign="top">WiFiUDP&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f86660350f23d81b7d8bd36f61a4778">ntp_udp</a></td></tr>
 <tr class="memdesc:a7f86660350f23d81b7d8bd36f61a4778"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDP instance for NTP communication.  <br /></td></tr>
 <tr class="separator:a7f86660350f23d81b7d8bd36f61a4778"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae16b2283287383f97a79a0df2407eed4" id="r_ae16b2283287383f97a79a0df2407eed4"><td class="memItemLeft" align="right" valign="top">NAU7802&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae16b2283287383f97a79a0df2407eed4">my_scale</a></td></tr>
-<tr class="memdesc:ae16b2283287383f97a79a0df2407eed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of the NAU7802 load cell amplifier.  <br /></td></tr>
+<tr class="memdesc:ae16b2283287383f97a79a0df2407eed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load cell amplifier instance.  <br /></td></tr>
 <tr class="separator:ae16b2283287383f97a79a0df2407eed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada1a895a5ff67fb36ed9a4765f2274d2" id="r_ada1a895a5ff67fb36ed9a4765f2274d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada1a895a5ff67fb36ed9a4765f2274d2">isConnected</a> = false</td></tr>
-<tr class="memdesc:ada1a895a5ff67fb36ed9a4765f2274d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connection status flag.  <br /></td></tr>
+<tr class="memdesc:ada1a895a5ff67fb36ed9a4765f2274d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks the connection status of the WiFi network.  <br /></td></tr>
 <tr class="separator:ada1a895a5ff67fb36ed9a4765f2274d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af714c2132c62a69b96c0e2ffe338944e" id="r_af714c2132c62a69b96c0e2ffe338944e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af714c2132c62a69b96c0e2ffe338944e">ssid_text</a></td></tr>
 <tr class="separator:af714c2132c62a69b96c0e2ffe338944e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02e520e9de360b7d35f84e0eeab5e2da" id="r_a02e520e9de360b7d35f84e0eeab5e2da"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02e520e9de360b7d35f84e0eeab5e2da">password_text</a></td></tr>
-<tr class="memdesc:a02e520e9de360b7d35f84e0eeab5e2da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variables for storing SSID and password inputs.  <br /></td></tr>
 <tr class="separator:a02e520e9de360b7d35f84e0eeab5e2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7226302a2da4937f696d4a63ea8a6dd" id="r_ae7226302a2da4937f696d4a63ea8a6dd"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7226302a2da4937f696d4a63ea8a6dd">global_ssid</a></td></tr>
+<tr class="separator:ae7226302a2da4937f696d4a63ea8a6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac238315487efb9c01783cdc5d6cf38ca" id="r_ac238315487efb9c01783cdc5d6cf38ca"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac238315487efb9c01783cdc5d6cf38ca">global_password</a></td></tr>
+<tr class="separator:ac238315487efb9c01783cdc5d6cf38ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a726aa61c4afe95f49836eca2c90b37c7" id="r_a726aa61c4afe95f49836eca2c90b37c7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a726aa61c4afe95f49836eca2c90b37c7">previous_weight</a> = 0</td></tr>
-<tr class="memdesc:a726aa61c4afe95f49836eca2c90b37c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous weight measured by the scale.  <br /></td></tr>
+<tr class="memdesc:a726aa61c4afe95f49836eca2c90b37c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the last measured weight, used to calculate flow rate.  <br /></td></tr>
 <tr class="separator:a726aa61c4afe95f49836eca2c90b37c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac03c805c3f48efb3f661537e49fdb2e6" id="r_ac03c805c3f48efb3f661537e49fdb2e6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac03c805c3f48efb3f661537e49fdb2e6">flow_rate</a> = 0</td></tr>
+<tr class="separator:ac03c805c3f48efb3f661537e49fdb2e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b479e182814db39736b339168a0f05f" id="r_a8b479e182814db39736b339168a0f05f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b479e182814db39736b339168a0f05f">prev_volume</a> = INT_MIN</td></tr>
+<tr class="separator:a8b479e182814db39736b339168a0f05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a016abda2855c77dcc1630f9d2f9f8d18" id="r_a016abda2855c77dcc1630f9d2f9f8d18"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a016abda2855c77dcc1630f9d2f9f8d18">volume</a> = 0</td></tr>
+<tr class="separator:a016abda2855c77dcc1630f9d2f9f8d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f6c585ce27342aae02df5f5e45d9836" id="r_a1f6c585ce27342aae02df5f5e45d9836"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f6c585ce27342aae02df5f5e45d9836">previous_timestamp</a> = 0</td></tr>
-<tr class="memdesc:a1f6c585ce27342aae02df5f5e45d9836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp of the previous measurement.  <br /></td></tr>
+<tr class="memdesc:a1f6c585ce27342aae02df5f5e45d9836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the last timestamp of measurement, used in flow rate calculation.  <br /></td></tr>
 <tr class="separator:a1f6c585ce27342aae02df5f5e45d9836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ecd7492d29572181cc7fb6be4326adb" id="r_a3ecd7492d29572181cc7fb6be4326adb"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ecd7492d29572181cc7fb6be4326adb">flow_rate</a> = 0.0</td></tr>
-<tr class="memdesc:a3ecd7492d29572181cc7fb6be4326adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current flow rate.  <br /></td></tr>
-<tr class="separator:a3ecd7492d29572181cc7fb6be4326adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd5928f9da93941740ed17d03ceda93b" id="r_afd5928f9da93941740ed17d03ceda93b"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd5928f9da93941740ed17d03ceda93b">volume</a> = 0.0</td></tr>
-<tr class="memdesc:afd5928f9da93941740ed17d03ceda93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total volume measured.  <br /></td></tr>
-<tr class="separator:afd5928f9da93941740ed17d03ceda93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa592592ded1d72b2970d33f58e2db2c6" id="r_aa592592ded1d72b2970d33f58e2db2c6"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa592592ded1d72b2970d33f58e2db2c6">flow_rate_threshold</a> = 5.0</td></tr>
-<tr class="memdesc:aa592592ded1d72b2970d33f58e2db2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Threshold for significant flow rate to trigger actions.  <br /></td></tr>
-<tr class="separator:aa592592ded1d72b2970d33f58e2db2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42cc85bc12e25d1c6206a5044d8174e4" id="r_a42cc85bc12e25d1c6206a5044d8174e4"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42cc85bc12e25d1c6206a5044d8174e4">current_time</a> = 0</td></tr>
-<tr class="memdesc:a42cc85bc12e25d1c6206a5044d8174e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current time since the program started.  <br /></td></tr>
 <tr class="separator:a42cc85bc12e25d1c6206a5044d8174e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a471abf687001d052decbbda33e0b8ffb" id="r_a471abf687001d052decbbda33e0b8ffb"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a471abf687001d052decbbda33e0b8ffb">last_active_time</a> = 0</td></tr>
-<tr class="memdesc:a471abf687001d052decbbda33e0b8ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last time the system was active.  <br /></td></tr>
 <tr class="separator:a471abf687001d052decbbda33e0b8ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cf11716f848e9df0d2e0c3e4f5cfea3" id="r_a1cf11716f848e9df0d2e0c3e4f5cfea3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cf11716f848e9df0d2e0c3e4f5cfea3">blueLedState</a> = false</td></tr>
-<tr class="memdesc:a1cf11716f848e9df0d2e0c3e4f5cfea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of the blue LED.  <br /></td></tr>
 <tr class="separator:a1cf11716f848e9df0d2e0c3e4f5cfea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8124e444ac3f4bc6b0003e3194316c35" id="r_a8124e444ac3f4bc6b0003e3194316c35"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8124e444ac3f4bc6b0003e3194316c35">publish_string</a></td></tr>
-<tr class="memdesc:a8124e444ac3f4bc6b0003e3194316c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">String for publishing data.  <br /></td></tr>
 <tr class="separator:a8124e444ac3f4bc6b0003e3194316c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a285fa2d1564ceaa641276e4b6c5e1357" id="r_a285fa2d1564ceaa641276e4b6c5e1357"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a285fa2d1564ceaa641276e4b6c5e1357">battery_value</a> = 0.0</td></tr>
-<tr class="memdesc:a285fa2d1564ceaa641276e4b6c5e1357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current battery voltage.  <br /></td></tr>
+<tr class="memitem:a285fa2d1564ceaa641276e4b6c5e1357" id="r_a285fa2d1564ceaa641276e4b6c5e1357"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a285fa2d1564ceaa641276e4b6c5e1357">battery_value</a> = 0</td></tr>
 <tr class="separator:a285fa2d1564ceaa641276e4b6c5e1357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65d0c3d3a6aeb060169084edb99d4e50" id="r_a65d0c3d3a6aeb060169084edb99d4e50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65d0c3d3a6aeb060169084edb99d4e50">is_sending_data</a> = false</td></tr>
+<tr class="separator:a65d0c3d3a6aeb060169084edb99d4e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd691389351d63eff2c2721e89f8619d" id="r_acd691389351d63eff2c2721e89f8619d"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd691389351d63eff2c2721e89f8619d">last_time_above_threshold</a> = 0</td></tr>
+<tr class="separator:acd691389351d63eff2c2721e89f8619d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e73f4ee45d241cbab6865dc08bb7c72" id="r_a0e73f4ee45d241cbab6865dc08bb7c72"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e73f4ee45d241cbab6865dc08bb7c72">SEND_DATA_DURATION</a> = 10000</td></tr>
+<tr class="separator:a0e73f4ee45d241cbab6865dc08bb7c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b3fc9312a4ac3ac0a1912a303cd2b2c" id="r_a8b3fc9312a4ac3ac0a1912a303cd2b2c"><td class="memItemLeft" align="right" valign="top">const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b3fc9312a4ac3ac0a1912a303cd2b2c">FLOW_RATE_THRESHOLD</a> = 2.0</td></tr>
+<tr class="separator:a8b3fc9312a4ac3ac0a1912a303cd2b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6fa007c5df3ae6da9493dbb82973c8" id="r_acf6fa007c5df3ae6da9493dbb82973c8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf6fa007c5df3ae6da9493dbb82973c8">flow_rate_to_publish</a> = 0</td></tr>
+<tr class="separator:acf6fa007c5df3ae6da9493dbb82973c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9b80fe93ff83fae0eb68a305fc6031" id="r_a5a9b80fe93ff83fae0eb68a305fc6031"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a9b80fe93ff83fae0eb68a305fc6031">volume_to_publish</a> = 0</td></tr>
+<tr class="separator:a5a9b80fe93ff83fae0eb68a305fc6031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a441f85b32e1ee4040eddcd5bb2a5d5f8" id="r_a441f85b32e1ee4040eddcd5bb2a5d5f8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a441f85b32e1ee4040eddcd5bb2a5d5f8">temp_flow_rate</a> = 0</td></tr>
+<tr class="separator:a441f85b32e1ee4040eddcd5bb2a5d5f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8878b3ec5f8e33f3301d3ffcf953abbe" id="r_a8878b3ec5f8e33f3301d3ffcf953abbe"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8878b3ec5f8e33f3301d3ffcf953abbe">temp_volume</a> = 0</td></tr>
+<tr class="separator:a8878b3ec5f8e33f3301d3ffcf953abbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe95d043446c01d59b3b60e87e184812" id="r_abe95d043446c01d59b3b60e87e184812"><td class="memItemLeft" align="right" valign="top">volatile unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe95d043446c01d59b3b60e87e184812">first_time_below_threshold</a> = 0</td></tr>
+<tr class="separator:abe95d043446c01d59b3b60e87e184812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8d8c2ebf976dbaa181dae88ba50fa5" id="r_afd8d8c2ebf976dbaa181dae88ba50fa5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd8d8c2ebf976dbaa181dae88ba50fa5">document_counter</a> = 0</td></tr>
+<tr class="separator:afd8d8c2ebf976dbaa181dae88ba50fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aebfad68ac43433dd78adf3ed419255" id="r_a6aebfad68ac43433dd78adf3ed419255"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aebfad68ac43433dd78adf3ed419255">above_threshold_count</a> = 0</td></tr>
+<tr class="separator:a6aebfad68ac43433dd78adf3ed419255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a495e5709ad6f0cb4d4ace778edb8e79b" id="r_a495e5709ad6f0cb4d4ace778edb8e79b"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a495e5709ad6f0cb4d4ace778edb8e79b">REQUIRED_ABOVE_THRESHOLD_COUNT</a> = 3</td></tr>
+<tr class="separator:a495e5709ad6f0cb4d4ace778edb8e79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7db28543c3b2ef692f8dcb63964f2b" id="r_a6c7db28543c3b2ef692f8dcb63964f2b"><td class="memItemLeft" align="right" valign="top">const long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c7db28543c3b2ef692f8dcb63964f2b">gmtOffset_sec</a> = -18000</td></tr>
+<tr class="separator:a6c7db28543c3b2ef692f8dcb63964f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcecff6206d272c30174ca268e2e6f0a" id="r_abcecff6206d272c30174ca268e2e6f0a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcecff6206d272c30174ca268e2e6f0a">daylightOffset_sec</a> = 3600</td></tr>
+<tr class="separator:abcecff6206d272c30174ca268e2e6f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947d5af4115ebaa27261fd5bb72ade8b" id="r_a947d5af4115ebaa27261fd5bb72ade8b"><td class="memItemLeft" align="right" valign="top">Freenove_ESP32_WS2812&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a947d5af4115ebaa27261fd5bb72ade8b">strip</a> = Freenove_ESP32_WS2812(1, PIN_NEOPIXEL, 0, TYPE_GRB)</td></tr>
+<tr class="separator:a947d5af4115ebaa27261fd5bb72ade8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee0a9a7f4f7b3748a504f1eaee47866d" id="r_aee0a9a7f4f7b3748a504f1eaee47866d"><td class="memItemLeft" align="right" valign="top">static char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee0a9a7f4f7b3748a504f1eaee47866d">device_pub_id</a> [50]</td></tr>
+<tr class="separator:aee0a9a7f4f7b3748a504f1eaee47866d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f32c75fb4bc7ba39243ef4a9f8eacc1" id="r_a2f32c75fb4bc7ba39243ef4a9f8eacc1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f32c75fb4bc7ba39243ef4a9f8eacc1">mac</a> [6]</td></tr>
+<tr class="separator:a2f32c75fb4bc7ba39243ef4a9f8eacc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdc9e9fd9858882a5e55c637b4a568bb" id="r_afdc9e9fd9858882a5e55c637b4a568bb"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdc9e9fd9858882a5e55c637b4a568bb">mac_suffix</a> [13]</td></tr>
+<tr class="separator:afdc9e9fd9858882a5e55c637b4a568bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main file for a project that involves connecting an ESP32 device to AWS IoT Core, managing LED states, and measuring flow rates with a sensor. </p>
 <p>This file includes initialization for WiFi, MQTT messaging, JSON document handling, and sensor data processing. It also includes setup and loop functions that are typical in Arduino sketches, managing hardware states and network communications. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a77c4a4ac6941ef539de5cc5ab8c130dd" name="a77c4a4ac6941ef539de5cc5ab8c130dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77c4a4ac6941ef539de5cc5ab8c130dd">&#9670;&#160;</a></span>battery_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void battery_handler </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8150b927c771e10ba4e6947fbc97411" name="ae8150b927c771e10ba4e6947fbc97411"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8150b927c771e10ba4e6947fbc97411">&#9670;&#160;</a></span>connect_wifi_nvs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool connect_wifi_nvs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afbce9552bd27a769a0d218955116bc44" name="afbce9552bd27a769a0d218955116bc44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbce9552bd27a769a0d218955116bc44">&#9670;&#160;</a></span>device_publish_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void device_publish_id </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cde5af64cca80e906db61342798163b" name="a8cde5af64cca80e906db61342798163b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cde5af64cca80e906db61342798163b">&#9670;&#160;</a></span>get_time_now()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String get_time_now </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad61bd19de422f745c4f8706997898625" name="ad61bd19de422f745c4f8706997898625"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad61bd19de422f745c4f8706997898625">&#9670;&#160;</a></span>led_setup()</h2>
 
@@ -266,7 +378,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>MQTT client instance using the secure WiFi client. </p>
+<p>MQTT client using the secure WiFi client. </p>
 
 </div>
 </div>
@@ -285,7 +397,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>JSON document for publishing messages, with a buffer size of 256 bytes. </p>
+<p>JSON document for publishing MQTT messages. </p>
 
 </div>
 </div>
@@ -318,7 +430,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">NTPClient time_client </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a7f86660350f23d81b7d8bd36f61a4778">ntp_udp</a></td>          <td class="paramname"><span class="paramname">, </span></td>
+          <td class="paramtype"><a class="el" href="_timestamp_8h.html#a7f86660350f23d81b7d8bd36f61a4778">ntp_udp</a></td>          <td class="paramname"><span class="paramname">, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -352,6 +464,20 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a6aebfad68ac43433dd78adf3ed419255" name="a6aebfad68ac43433dd78adf3ed419255"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aebfad68ac43433dd78adf3ed419255">&#9670;&#160;</a></span>above_threshold_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int above_threshold_count = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a285fa2d1564ceaa641276e4b6c5e1357" name="a285fa2d1564ceaa641276e4b6c5e1357"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a285fa2d1564ceaa641276e4b6c5e1357">&#9670;&#160;</a></span>battery_value</h2>
 
@@ -359,12 +485,10 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float battery_value = 0.0</td>
+          <td class="memname">float battery_value = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Current battery voltage. </p>
 
 </div>
 </div>
@@ -394,8 +518,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>State of the blue LED. </p>
-
 </div>
 </div>
 <a id="af561bb7820311bd027c2e3293bae0e35" name="af561bb7820311bd027c2e3293bae0e35"></a>
@@ -405,7 +527,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const byte CHARGING_LED = 12</td>
+          <td class="memname">const byte CHARGING_LED = 14</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -424,39 +546,153 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current time since the program started. </p>
-
 </div>
 </div>
-<a id="a3ecd7492d29572181cc7fb6be4326adb" name="a3ecd7492d29572181cc7fb6be4326adb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ecd7492d29572181cc7fb6be4326adb">&#9670;&#160;</a></span>flow_rate</h2>
+<a id="abcecff6206d272c30174ca268e2e6f0a" name="abcecff6206d272c30174ca268e2e6f0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcecff6206d272c30174ca268e2e6f0a">&#9670;&#160;</a></span>daylightOffset_sec</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile float flow_rate = 0.0</td>
+          <td class="memname">const int daylightOffset_sec = 3600</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Current flow rate. </p>
+</div>
+</div>
+<a id="aee0a9a7f4f7b3748a504f1eaee47866d" name="aee0a9a7f4f7b3748a504f1eaee47866d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0a9a7f4f7b3748a504f1eaee47866d">&#9670;&#160;</a></span>device_pub_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char device_pub_id[50]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa592592ded1d72b2970d33f58e2db2c6" name="aa592592ded1d72b2970d33f58e2db2c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa592592ded1d72b2970d33f58e2db2c6">&#9670;&#160;</a></span>flow_rate_threshold</h2>
+<a id="afd8d8c2ebf976dbaa181dae88ba50fa5" name="afd8d8c2ebf976dbaa181dae88ba50fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8d8c2ebf976dbaa181dae88ba50fa5">&#9670;&#160;</a></span>document_counter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const float flow_rate_threshold = 5.0</td>
+          <td class="memname">int document_counter = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Threshold for significant flow rate to trigger actions. </p>
+</div>
+</div>
+<a id="abe95d043446c01d59b3b60e87e184812" name="abe95d043446c01d59b3b60e87e184812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe95d043446c01d59b3b60e87e184812">&#9670;&#160;</a></span>first_time_below_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile unsigned long first_time_below_threshold = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac03c805c3f48efb3f661537e49fdb2e6" name="ac03c805c3f48efb3f661537e49fdb2e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac03c805c3f48efb3f661537e49fdb2e6">&#9670;&#160;</a></span>flow_rate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float flow_rate = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b3fc9312a4ac3ac0a1912a303cd2b2c" name="a8b3fc9312a4ac3ac0a1912a303cd2b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b3fc9312a4ac3ac0a1912a303cd2b2c">&#9670;&#160;</a></span>FLOW_RATE_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const float FLOW_RATE_THRESHOLD = 2.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf6fa007c5df3ae6da9493dbb82973c8" name="acf6fa007c5df3ae6da9493dbb82973c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6fa007c5df3ae6da9493dbb82973c8">&#9670;&#160;</a></span>flow_rate_to_publish</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float flow_rate_to_publish = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac238315487efb9c01783cdc5d6cf38ca" name="ac238315487efb9c01783cdc5d6cf38ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac238315487efb9c01783cdc5d6cf38ca">&#9670;&#160;</a></span>global_password</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String global_password</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7226302a2da4937f696d4a63ea8a6dd" name="ae7226302a2da4937f696d4a63ea8a6dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7226302a2da4937f696d4a63ea8a6dd">&#9670;&#160;</a></span>global_ssid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String global_ssid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c7db28543c3b2ef692f8dcb63964f2b" name="a6c7db28543c3b2ef692f8dcb63964f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c7db28543c3b2ef692f8dcb63964f2b">&#9670;&#160;</a></span>gmtOffset_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const long gmtOffset_sec = -18000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -491,6 +727,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a65d0c3d3a6aeb060169084edb99d4e50" name="a65d0c3d3a6aeb060169084edb99d4e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d0c3d3a6aeb060169084edb99d4e50">&#9670;&#160;</a></span>is_sending_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_sending_data = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ada1a895a5ff67fb36ed9a4765f2274d2" name="ada1a895a5ff67fb36ed9a4765f2274d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada1a895a5ff67fb36ed9a4765f2274d2">&#9670;&#160;</a></span>isConnected</h2>
 
@@ -503,7 +753,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Connection status flag. </p>
 <p>Tracks the connection status of the WiFi network. </p>
 
 </div>
@@ -520,7 +769,47 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Last time the system was active. </p>
+</div>
+</div>
+<a id="acd691389351d63eff2c2721e89f8619d" name="acd691389351d63eff2c2721e89f8619d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd691389351d63eff2c2721e89f8619d">&#9670;&#160;</a></span>last_time_above_threshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long last_time_above_threshold = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f32c75fb4bc7ba39243ef4a9f8eacc1" name="a2f32c75fb4bc7ba39243ef4a9f8eacc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f32c75fb4bc7ba39243ef4a9f8eacc1">&#9670;&#160;</a></span>mac</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t mac[6]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdc9e9fd9858882a5e55c637b4a568bb" name="afdc9e9fd9858882a5e55c637b4a568bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdc9e9fd9858882a5e55c637b4a568bb">&#9670;&#160;</a></span>mac_suffix</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char mac_suffix[13]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -536,7 +825,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Instance of the NAU7802 load cell amplifier. </p>
+<p>Load cell amplifier instance. </p>
 <p>Instance of the NAU7802 class to communicate with the Qwiic Scale. </p>
 
 </div>
@@ -570,7 +859,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Variables for storing SSID and password inputs. </p>
+</div>
+</div>
+<a id="a8b479e182814db39736b339168a0f05f" name="a8b479e182814db39736b339168a0f05f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b479e182814db39736b339168a0f05f">&#9670;&#160;</a></span>prev_volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float prev_volume = INT_MIN</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -586,7 +887,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Timestamp of the previous measurement. </p>
 <p>Stores the last timestamp of measurement, used in flow rate calculation. </p>
 
 </div>
@@ -603,7 +903,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Previous weight measured by the scale. </p>
 <p>Stores the last measured weight, used to calculate flow rate. </p>
 
 </div>
@@ -620,8 +919,6 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>String for publishing data. </p>
-
 </div>
 </div>
 <a id="a8342cade79877346fa253e521b994e5b" name="a8342cade79877346fa253e521b994e5b"></a>
@@ -632,6 +929,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const byte RED_LED = 33</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a495e5709ad6f0cb4d4ace778edb8e79b" name="a495e5709ad6f0cb4d4ace778edb8e79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a495e5709ad6f0cb4d4ace778edb8e79b">&#9670;&#160;</a></span>REQUIRED_ABOVE_THRESHOLD_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int REQUIRED_ABOVE_THRESHOLD_COUNT = 3</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -655,6 +966,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a0e73f4ee45d241cbab6865dc08bb7c72" name="a0e73f4ee45d241cbab6865dc08bb7c72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e73f4ee45d241cbab6865dc08bb7c72">&#9670;&#160;</a></span>SEND_DATA_DURATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned long SEND_DATA_DURATION = 10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af714c2132c62a69b96c0e2ffe338944e" name="af714c2132c62a69b96c0e2ffe338944e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af714c2132c62a69b96c0e2ffe338944e">&#9670;&#160;</a></span>ssid_text</h2>
 
@@ -669,19 +994,89 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afd5928f9da93941740ed17d03ceda93b" name="afd5928f9da93941740ed17d03ceda93b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd5928f9da93941740ed17d03ceda93b">&#9670;&#160;</a></span>volume</h2>
+<a id="a947d5af4115ebaa27261fd5bb72ade8b" name="a947d5af4115ebaa27261fd5bb72ade8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947d5af4115ebaa27261fd5bb72ade8b">&#9670;&#160;</a></span>strip</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">volatile float volume = 0.0</td>
+          <td class="memname">Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(1, PIN_NEOPIXEL, 0, TYPE_GRB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Total volume measured. </p>
+</div>
+</div>
+<a id="a441f85b32e1ee4040eddcd5bb2a5d5f8" name="a441f85b32e1ee4040eddcd5bb2a5d5f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a441f85b32e1ee4040eddcd5bb2a5d5f8">&#9670;&#160;</a></span>temp_flow_rate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float temp_flow_rate = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8878b3ec5f8e33f3301d3ffcf953abbe" name="a8878b3ec5f8e33f3301d3ffcf953abbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8878b3ec5f8e33f3301d3ffcf953abbe">&#9670;&#160;</a></span>temp_volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float temp_volume = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a016abda2855c77dcc1630f9d2f9f8d18" name="a016abda2855c77dcc1630f9d2f9f8d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a016abda2855c77dcc1630f9d2f9f8d18">&#9670;&#160;</a></span>volume</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float volume = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a9b80fe93ff83fae0eb68a305fc6031" name="a5a9b80fe93ff83fae0eb68a305fc6031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9b80fe93ff83fae0eb68a305fc6031">&#9670;&#160;</a></span>volume_to_publish</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float volume_to_publish = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67e861b7829aa2e5139b4ffe55c85395" name="a67e861b7829aa2e5139b4ffe55c85395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e861b7829aa2e5139b4ffe55c85395">&#9670;&#160;</a></span>WSPASS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* WSPASS = &quot;1234567890&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Web server access password. </p>
 
 </div>
 </div>

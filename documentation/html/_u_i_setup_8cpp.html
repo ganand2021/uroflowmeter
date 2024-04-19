@@ -86,6 +86,8 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa2c2725056e992910c3e9f2090c14710" id="r_aa2c2725056e992910c3e9f2090c14710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2c2725056e992910c3e9f2090c14710">save_wifi_credentials_nvs</a> (String ssid, String password)</td></tr>
+<tr class="separator:aa2c2725056e992910c3e9f2090c14710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a171306373ac5172c14199b67c20df42f" id="r_a171306373ac5172c14199b67c20df42f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a171306373ac5172c14199b67c20df42f">setup_ui</a> ()</td></tr>
 <tr class="memdesc:a171306373ac5172c14199b67c20df42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes and configures the user interface for WiFi setup.  <br /></td></tr>
 <tr class="separator:a171306373ac5172c14199b67c20df42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,8 +102,36 @@ Variables</h2></td></tr>
 <tr class="memitem:ac4fbed25c9d82b26a56813f4892022d8" id="r_ac4fbed25c9d82b26a56813f4892022d8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4fbed25c9d82b26a56813f4892022d8">HOSTNAME</a></td></tr>
 <tr class="memdesc:ac4fbed25c9d82b26a56813f4892022d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hostname for the WiFi AP and ESPUI server.  <br /></td></tr>
 <tr class="separator:ac4fbed25c9d82b26a56813f4892022d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e861b7829aa2e5139b4ffe55c85395" id="r_a67e861b7829aa2e5139b4ffe55c85395"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67e861b7829aa2e5139b4ffe55c85395">WSPASS</a></td></tr>
+<tr class="memdesc:a67e861b7829aa2e5139b4ffe55c85395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Web server access password.  <br /></td></tr>
+<tr class="separator:a67e861b7829aa2e5139b4ffe55c85395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7226302a2da4937f696d4a63ea8a6dd" id="r_ae7226302a2da4937f696d4a63ea8a6dd"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7226302a2da4937f696d4a63ea8a6dd">global_ssid</a></td></tr>
+<tr class="separator:ae7226302a2da4937f696d4a63ea8a6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac238315487efb9c01783cdc5d6cf38ca" id="r_ac238315487efb9c01783cdc5d6cf38ca"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac238315487efb9c01783cdc5d6cf38ca">global_password</a></td></tr>
+<tr class="separator:ac238315487efb9c01783cdc5d6cf38ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aa2c2725056e992910c3e9f2090c14710" name="aa2c2725056e992910c3e9f2090c14710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c2725056e992910c3e9f2090c14710">&#9670;&#160;</a></span>save_wifi_credentials_nvs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void save_wifi_credentials_nvs </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>ssid</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a171306373ac5172c14199b67c20df42f" name="a171306373ac5172c14199b67c20df42f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a171306373ac5172c14199b67c20df42f">&#9670;&#160;</a></span>setup_ui()</h2>
 
@@ -124,6 +154,50 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="ac238315487efb9c01783cdc5d6cf38ca" name="ac238315487efb9c01783cdc5d6cf38ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac238315487efb9c01783cdc5d6cf38ca">&#9670;&#160;</a></span>global_password</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String global_password</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7226302a2da4937f696d4a63ea8a6dd" name="ae7226302a2da4937f696d4a63ea8a6dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7226302a2da4937f696d4a63ea8a6dd">&#9670;&#160;</a></span>global_ssid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String global_ssid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac4fbed25c9d82b26a56813f4892022d8" name="ac4fbed25c9d82b26a56813f4892022d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4fbed25c9d82b26a56813f4892022d8">&#9670;&#160;</a></span>HOSTNAME</h2>
 
@@ -184,6 +258,30 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67e861b7829aa2e5139b4ffe55c85395" name="a67e861b7829aa2e5139b4ffe55c85395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e861b7829aa2e5139b4ffe55c85395">&#9670;&#160;</a></span>WSPASS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* WSPASS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Web server access password. </p>
 
 </div>
 </div>

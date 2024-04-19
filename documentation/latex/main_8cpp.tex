@@ -9,6 +9,8 @@ Main file for a project that involves connecting an ESP32 device to AWS IoT Core
 {\ttfamily \#include $<$Wi\+Fi\+Client\+Secure.\+h$>$}\newline
 {\ttfamily \#include $<$Pub\+Sub\+Client.\+h$>$}\newline
 {\ttfamily \#include $<$Arduino\+Json.\+h$>$}\newline
+{\ttfamily \#include $<$Arduino\+Nvs.\+h$>$}\newline
+{\ttfamily \#include $<$Freenove\+\_\+\+WS2812\+\_\+\+Lib\+\_\+for\+\_\+\+ESP32.\+h$>$}\newline
 {\ttfamily \#include "{}Wi\+Fi\+Manager.\+h"{}}\newline
 {\ttfamily \#include "{}AWSManager.\+h"{}}\newline
 {\ttfamily \#include "{}UISetup.\+h"{}}\newline
@@ -19,10 +21,10 @@ Main file for a project that involves connecting an ESP32 device to AWS IoT Core
 \begin{DoxyCompactItemize}
 \item 
 Pub\+Sub\+Client \mbox{\hyperlink{main_8cpp_a59b7e2d7374eb07497234a32456f6e35}{mqtt\+\_\+client}} (\mbox{\hyperlink{_a_w_s_manager_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3}{secure\+\_\+client}})
-\begin{DoxyCompactList}\small\item\em MQTT client instance using the secure Wi\+Fi client. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em MQTT client using the secure Wi\+Fi client. \end{DoxyCompactList}\item 
 Dynamic\+Json\+Document \mbox{\hyperlink{main_8cpp_ac9c56dfe5d67aab23f66e5fba08c01a8}{pub\+\_\+doc}} (256)
-\begin{DoxyCompactList}\small\item\em JSON document for publishing messages, with a buffer size of 256 bytes. \end{DoxyCompactList}\item 
-NTPClient \mbox{\hyperlink{main_8cpp_a95ff6936caea1735195051a8f55b78fb}{time\+\_\+client}} (\mbox{\hyperlink{main_8cpp_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}, \mbox{\hyperlink{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}{NTP\+\_\+\+SERVER}})
+\begin{DoxyCompactList}\small\item\em JSON document for publishing MQTT messages. \end{DoxyCompactList}\item 
+NTPClient \mbox{\hyperlink{main_8cpp_a95ff6936caea1735195051a8f55b78fb}{time\+\_\+client}} (\mbox{\hyperlink{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}, \mbox{\hyperlink{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}{NTP\+\_\+\+SERVER}})
 \begin{DoxyCompactList}\small\item\em NTP client for time synchronization. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_ad61bd19de422f745c4f8706997898625}{led\+\_\+setup}} ()
 \begin{DoxyCompactList}\small\item\em Initializes LEDs as output and sets an initial state. \end{DoxyCompactList}\item 
@@ -30,6 +32,14 @@ void \mbox{\hyperlink{main_8cpp_a9df9d518e264c01dc3cde5a48d6fdce3}{toggle\+Blue\
 \begin{DoxyCompactList}\small\item\em Toggles the state of the blue LED. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_a3c891c9ab1dc7c4b07aa8662cf40fc9a}{measure\+Flow\+Rate\+Task}} (void \texorpdfstring{$\ast$}{*}parameter)
 \begin{DoxyCompactList}\small\item\em Task function to continuously measure the flow rate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a77c4a4ac6941ef539de5cc5ab8c130dd}{battery\+\_\+handler}} ()
+\item 
+String \mbox{\hyperlink{main_8cpp_a8cde5af64cca80e906db61342798163b}{get\+\_\+time\+\_\+now}} ()
+\item 
+bool \mbox{\hyperlink{main_8cpp_ae8150b927c771e10ba4e6947fbc97411}{connect\+\_\+wifi\+\_\+nvs}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_afbce9552bd27a769a0d218955116bc44}{device\+\_\+publish\+\_\+id}} ()
+\item 
 void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
 \begin{DoxyCompactList}\small\item\em Setup function for the Arduino sketch. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
@@ -43,42 +53,84 @@ const byte \mbox{\hyperlink{main_8cpp_a8342cade79877346fa253e521b994e5b}{RED\+\_
 \item 
 const byte \mbox{\hyperlink{main_8cpp_a5903a088e38cc614c92881ac59af81c4}{BLUE\+\_\+\+LED}} = 12
 \item 
-const byte \mbox{\hyperlink{main_8cpp_af561bb7820311bd027c2e3293bae0e35}{CHARGING\+\_\+\+LED}} = 12
+const byte \mbox{\hyperlink{main_8cpp_af561bb7820311bd027c2e3293bae0e35}{CHARGING\+\_\+\+LED}} = 14
 \item 
 Wi\+Fi\+Client\+Secure \mbox{\hyperlink{main_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3}{secure\+\_\+client}}
 \begin{DoxyCompactList}\small\item\em Secure client for Wi\+Fi connections. \end{DoxyCompactList}\item 
 const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{main_8cpp_ac4fbed25c9d82b26a56813f4892022d8}{HOSTNAME}} = "{}ESP-\/Wi\+Fi-\/GUI"{}
 \begin{DoxyCompactList}\small\item\em Hostname for the device. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{main_8cpp_a67e861b7829aa2e5139b4ffe55c85395}{WSPASS}} = "{}1234567890"{}
+\begin{DoxyCompactList}\small\item\em Web server access password. \end{DoxyCompactList}\item 
 Wi\+Fi\+UDP \mbox{\hyperlink{main_8cpp_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}
 \begin{DoxyCompactList}\small\item\em UDP instance for NTP communication. \end{DoxyCompactList}\item 
 NAU7802 \mbox{\hyperlink{main_8cpp_ae16b2283287383f97a79a0df2407eed4}{my\+\_\+scale}}
-\begin{DoxyCompactList}\small\item\em Instance of the NAU7802 load cell amplifier. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Load cell amplifier instance. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{main_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2}{is\+Connected}} = false
-\begin{DoxyCompactList}\small\item\em Connection status flag. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Tracks the connection status of the Wi\+Fi network. \end{DoxyCompactList}\item 
 uint16\+\_\+t \mbox{\hyperlink{main_8cpp_af714c2132c62a69b96c0e2ffe338944e}{ssid\+\_\+text}}
 \item 
 uint16\+\_\+t \mbox{\hyperlink{main_8cpp_a02e520e9de360b7d35f84e0eeab5e2da}{password\+\_\+text}}
-\begin{DoxyCompactList}\small\item\em Variables for storing SSID and password inputs. \end{DoxyCompactList}\item 
+\item 
+String \mbox{\hyperlink{main_8cpp_ae7226302a2da4937f696d4a63ea8a6dd}{global\+\_\+ssid}}
+\item 
+String \mbox{\hyperlink{main_8cpp_ac238315487efb9c01783cdc5d6cf38ca}{global\+\_\+password}}
+\item 
 float \mbox{\hyperlink{main_8cpp_a726aa61c4afe95f49836eca2c90b37c7}{previous\+\_\+weight}} = 0
-\begin{DoxyCompactList}\small\item\em Previous weight measured by the scale. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Stores the last measured weight, used to calculate flow rate. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{main_8cpp_ac03c805c3f48efb3f661537e49fdb2e6}{flow\+\_\+rate}} = 0
+\item 
+float \mbox{\hyperlink{main_8cpp_a8b479e182814db39736b339168a0f05f}{prev\+\_\+volume}} = INT\+\_\+\+MIN
+\item 
+float \mbox{\hyperlink{main_8cpp_a016abda2855c77dcc1630f9d2f9f8d18}{volume}} = 0
+\item 
 unsigned long \mbox{\hyperlink{main_8cpp_a1f6c585ce27342aae02df5f5e45d9836}{previous\+\_\+timestamp}} = 0
-\begin{DoxyCompactList}\small\item\em Timestamp of the previous measurement. \end{DoxyCompactList}\item 
-volatile float \mbox{\hyperlink{main_8cpp_a3ecd7492d29572181cc7fb6be4326adb}{flow\+\_\+rate}} = 0.\+0
-\begin{DoxyCompactList}\small\item\em Current flow rate. \end{DoxyCompactList}\item 
-volatile float \mbox{\hyperlink{main_8cpp_afd5928f9da93941740ed17d03ceda93b}{volume}} = 0.\+0
-\begin{DoxyCompactList}\small\item\em Total volume measured. \end{DoxyCompactList}\item 
-const float \mbox{\hyperlink{main_8cpp_aa592592ded1d72b2970d33f58e2db2c6}{flow\+\_\+rate\+\_\+threshold}} = 5.\+0
-\begin{DoxyCompactList}\small\item\em Threshold for significant flow rate to trigger actions. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Stores the last timestamp of measurement, used in flow rate calculation. \end{DoxyCompactList}\item 
 unsigned long \mbox{\hyperlink{main_8cpp_a42cc85bc12e25d1c6206a5044d8174e4}{current\+\_\+time}} = 0
-\begin{DoxyCompactList}\small\item\em Current time since the program started. \end{DoxyCompactList}\item 
+\item 
 unsigned long \mbox{\hyperlink{main_8cpp_a471abf687001d052decbbda33e0b8ffb}{last\+\_\+active\+\_\+time}} = 0
-\begin{DoxyCompactList}\small\item\em Last time the system was active. \end{DoxyCompactList}\item 
+\item 
 bool \mbox{\hyperlink{main_8cpp_a1cf11716f848e9df0d2e0c3e4f5cfea3}{blue\+Led\+State}} = false
-\begin{DoxyCompactList}\small\item\em State of the blue LED. \end{DoxyCompactList}\item 
+\item 
 String \mbox{\hyperlink{main_8cpp_a8124e444ac3f4bc6b0003e3194316c35}{publish\+\_\+string}}
-\begin{DoxyCompactList}\small\item\em String for publishing data. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{main_8cpp_a285fa2d1564ceaa641276e4b6c5e1357}{battery\+\_\+value}} = 0.\+0
-\begin{DoxyCompactList}\small\item\em Current battery voltage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{main_8cpp_a285fa2d1564ceaa641276e4b6c5e1357}{battery\+\_\+value}} = 0
+\item 
+bool \mbox{\hyperlink{main_8cpp_a65d0c3d3a6aeb060169084edb99d4e50}{is\+\_\+sending\+\_\+data}} = false
+\item 
+unsigned long \mbox{\hyperlink{main_8cpp_acd691389351d63eff2c2721e89f8619d}{last\+\_\+time\+\_\+above\+\_\+threshold}} = 0
+\item 
+const unsigned long \mbox{\hyperlink{main_8cpp_a0e73f4ee45d241cbab6865dc08bb7c72}{SEND\+\_\+\+DATA\+\_\+\+DURATION}} = 10000
+\item 
+const float \mbox{\hyperlink{main_8cpp_a8b3fc9312a4ac3ac0a1912a303cd2b2c}{FLOW\+\_\+\+RATE\+\_\+\+THRESHOLD}} = 2.\+0
+\item 
+float \mbox{\hyperlink{main_8cpp_acf6fa007c5df3ae6da9493dbb82973c8}{flow\+\_\+rate\+\_\+to\+\_\+publish}} = 0
+\item 
+float \mbox{\hyperlink{main_8cpp_a5a9b80fe93ff83fae0eb68a305fc6031}{volume\+\_\+to\+\_\+publish}} = 0
+\item 
+float \mbox{\hyperlink{main_8cpp_a441f85b32e1ee4040eddcd5bb2a5d5f8}{temp\+\_\+flow\+\_\+rate}} = 0
+\item 
+float \mbox{\hyperlink{main_8cpp_a8878b3ec5f8e33f3301d3ffcf953abbe}{temp\+\_\+volume}} = 0
+\item 
+volatile unsigned long \mbox{\hyperlink{main_8cpp_abe95d043446c01d59b3b60e87e184812}{first\+\_\+time\+\_\+below\+\_\+threshold}} = 0
+\item 
+int \mbox{\hyperlink{main_8cpp_afd8d8c2ebf976dbaa181dae88ba50fa5}{document\+\_\+counter}} = 0
+\item 
+int \mbox{\hyperlink{main_8cpp_a6aebfad68ac43433dd78adf3ed419255}{above\+\_\+threshold\+\_\+count}} = 0
+\item 
+const int \mbox{\hyperlink{main_8cpp_a495e5709ad6f0cb4d4ace778edb8e79b}{REQUIRED\+\_\+\+ABOVE\+\_\+\+THRESHOLD\+\_\+\+COUNT}} = 3
+\item 
+const long \mbox{\hyperlink{main_8cpp_a6c7db28543c3b2ef692f8dcb63964f2b}{gmt\+Offset\+\_\+sec}} = -\/18000
+\item 
+const int \mbox{\hyperlink{main_8cpp_abcecff6206d272c30174ca268e2e6f0a}{daylight\+Offset\+\_\+sec}} = 3600
+\item 
+Freenove\+\_\+\+ESP32\+\_\+\+WS2812 \mbox{\hyperlink{main_8cpp_a947d5af4115ebaa27261fd5bb72ade8b}{strip}} = Freenove\+\_\+\+ESP32\+\_\+\+WS2812(1, PIN\+\_\+\+NEOPIXEL, 0, TYPE\+\_\+\+GRB)
+\item 
+static char \mbox{\hyperlink{main_8cpp_aee0a9a7f4f7b3748a504f1eaee47866d}{device\+\_\+pub\+\_\+id}} \mbox{[}50\mbox{]}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a2f32c75fb4bc7ba39243ef4a9f8eacc1}{mac}} \mbox{[}6\mbox{]}
+\item 
+char \mbox{\hyperlink{main_8cpp_afdc9e9fd9858882a5e55c637b4a568bb}{mac\+\_\+suffix}} \mbox{[}13\mbox{]}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -87,6 +139,30 @@ Main file for a project that involves connecting an ESP32 device to AWS IoT Core
 This file includes initialization for Wi\+Fi, MQTT messaging, JSON document handling, and sensor data processing. It also includes setup and loop functions that are typical in Arduino sketches, managing hardware states and network communications. 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a77c4a4ac6941ef539de5cc5ab8c130dd}\label{main_8cpp_a77c4a4ac6941ef539de5cc5ab8c130dd} 
+\index{main.cpp@{main.cpp}!battery\_handler@{battery\_handler}}
+\index{battery\_handler@{battery\_handler}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{battery\_handler()}{battery\_handler()}}
+{\footnotesize\ttfamily void battery\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_ae8150b927c771e10ba4e6947fbc97411}\label{main_8cpp_ae8150b927c771e10ba4e6947fbc97411} 
+\index{main.cpp@{main.cpp}!connect\_wifi\_nvs@{connect\_wifi\_nvs}}
+\index{connect\_wifi\_nvs@{connect\_wifi\_nvs}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{connect\_wifi\_nvs()}{connect\_wifi\_nvs()}}
+{\footnotesize\ttfamily bool connect\+\_\+wifi\+\_\+nvs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_afbce9552bd27a769a0d218955116bc44}\label{main_8cpp_afbce9552bd27a769a0d218955116bc44} 
+\index{main.cpp@{main.cpp}!device\_publish\_id@{device\_publish\_id}}
+\index{device\_publish\_id@{device\_publish\_id}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{device\_publish\_id()}{device\_publish\_id()}}
+{\footnotesize\ttfamily void device\+\_\+publish\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a8cde5af64cca80e906db61342798163b}\label{main_8cpp_a8cde5af64cca80e906db61342798163b} 
+\index{main.cpp@{main.cpp}!get\_time\_now@{get\_time\_now}}
+\index{get\_time\_now@{get\_time\_now}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_time\_now()}{get\_time\_now()}}
+{\footnotesize\ttfamily String get\+\_\+time\+\_\+now (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \Hypertarget{main_8cpp_ad61bd19de422f745c4f8706997898625}\label{main_8cpp_ad61bd19de422f745c4f8706997898625} 
 \index{main.cpp@{main.cpp}!led\_setup@{led\_setup}}
 \index{led\_setup@{led\_setup}!main.cpp@{main.cpp}}
@@ -130,7 +206,7 @@ Task function to continuously measure the flow rate.
 
 
 
-MQTT client instance using the secure Wi\+Fi client. 
+MQTT client using the secure Wi\+Fi client. 
 
 \Hypertarget{main_8cpp_ac9c56dfe5d67aab23f66e5fba08c01a8}\label{main_8cpp_ac9c56dfe5d67aab23f66e5fba08c01a8} 
 \index{main.cpp@{main.cpp}!pub\_doc@{pub\_doc}}
@@ -140,7 +216,7 @@ MQTT client instance using the secure Wi\+Fi client.
 
 
 
-JSON document for publishing messages, with a buffer size of 256 bytes. 
+JSON document for publishing MQTT messages. 
 
 \Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
 \index{main.cpp@{main.cpp}!setup@{setup}}
@@ -156,7 +232,7 @@ Initializes serial communication, LEDs, Wi\+Fi connection, AWS IoT Core connecti
 \index{main.cpp@{main.cpp}!time\_client@{time\_client}}
 \index{time\_client@{time\_client}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{time\_client()}{time\_client()}}
-{\footnotesize\ttfamily NTPClient time\+\_\+client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{main_8cpp_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}}]{,  }\item[{\mbox{\hyperlink{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}{NTP\+\_\+\+SERVER}}}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily NTPClient time\+\_\+client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_timestamp_8h_a7f86660350f23d81b7d8bd36f61a4778}{ntp\+\_\+udp}}}]{,  }\item[{\mbox{\hyperlink{_timestamp_8h_a751e3f85cd240e89d390d18996089cd0}{NTP\+\_\+\+SERVER}}}]{ }\end{DoxyParamCaption})}
 
 
 
@@ -175,15 +251,17 @@ Toggles the state of the blue LED.
 
 
 \doxysubsection{Variable Documentation}
+\Hypertarget{main_8cpp_a6aebfad68ac43433dd78adf3ed419255}\label{main_8cpp_a6aebfad68ac43433dd78adf3ed419255} 
+\index{main.cpp@{main.cpp}!above\_threshold\_count@{above\_threshold\_count}}
+\index{above\_threshold\_count@{above\_threshold\_count}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{above\_threshold\_count}{above\_threshold\_count}}
+{\footnotesize\ttfamily int above\+\_\+threshold\+\_\+count = 0}
+
 \Hypertarget{main_8cpp_a285fa2d1564ceaa641276e4b6c5e1357}\label{main_8cpp_a285fa2d1564ceaa641276e4b6c5e1357} 
 \index{main.cpp@{main.cpp}!battery\_value@{battery\_value}}
 \index{battery\_value@{battery\_value}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{battery\_value}{battery\_value}}
-{\footnotesize\ttfamily float battery\+\_\+value = 0.\+0}
-
-
-
-Current battery voltage. 
+{\footnotesize\ttfamily float battery\+\_\+value = 0}
 
 \Hypertarget{main_8cpp_a5903a088e38cc614c92881ac59af81c4}\label{main_8cpp_a5903a088e38cc614c92881ac59af81c4} 
 \index{main.cpp@{main.cpp}!BLUE\_LED@{BLUE\_LED}}
@@ -197,15 +275,11 @@ Current battery voltage.
 \doxysubsubsection{\texorpdfstring{blueLedState}{blueLedState}}
 {\footnotesize\ttfamily bool blue\+Led\+State = false}
 
-
-
-State of the blue LED. 
-
 \Hypertarget{main_8cpp_af561bb7820311bd027c2e3293bae0e35}\label{main_8cpp_af561bb7820311bd027c2e3293bae0e35} 
 \index{main.cpp@{main.cpp}!CHARGING\_LED@{CHARGING\_LED}}
 \index{CHARGING\_LED@{CHARGING\_LED}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{CHARGING\_LED}{CHARGING\_LED}}
-{\footnotesize\ttfamily const byte CHARGING\+\_\+\+LED = 12}
+{\footnotesize\ttfamily const byte CHARGING\+\_\+\+LED = 14}
 
 \Hypertarget{main_8cpp_a42cc85bc12e25d1c6206a5044d8174e4}\label{main_8cpp_a42cc85bc12e25d1c6206a5044d8174e4} 
 \index{main.cpp@{main.cpp}!current\_time@{current\_time}}
@@ -213,29 +287,65 @@ State of the blue LED.
 \doxysubsubsection{\texorpdfstring{current\_time}{current\_time}}
 {\footnotesize\ttfamily unsigned long current\+\_\+time = 0}
 
+\Hypertarget{main_8cpp_abcecff6206d272c30174ca268e2e6f0a}\label{main_8cpp_abcecff6206d272c30174ca268e2e6f0a} 
+\index{main.cpp@{main.cpp}!daylightOffset\_sec@{daylightOffset\_sec}}
+\index{daylightOffset\_sec@{daylightOffset\_sec}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{daylightOffset\_sec}{daylightOffset\_sec}}
+{\footnotesize\ttfamily const int daylight\+Offset\+\_\+sec = 3600}
 
+\Hypertarget{main_8cpp_aee0a9a7f4f7b3748a504f1eaee47866d}\label{main_8cpp_aee0a9a7f4f7b3748a504f1eaee47866d} 
+\index{main.cpp@{main.cpp}!device\_pub\_id@{device\_pub\_id}}
+\index{device\_pub\_id@{device\_pub\_id}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{device\_pub\_id}{device\_pub\_id}}
+{\footnotesize\ttfamily char device\+\_\+pub\+\_\+id\mbox{[}50\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
 
-Current time since the program started. 
+\Hypertarget{main_8cpp_afd8d8c2ebf976dbaa181dae88ba50fa5}\label{main_8cpp_afd8d8c2ebf976dbaa181dae88ba50fa5} 
+\index{main.cpp@{main.cpp}!document\_counter@{document\_counter}}
+\index{document\_counter@{document\_counter}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{document\_counter}{document\_counter}}
+{\footnotesize\ttfamily int document\+\_\+counter = 0}
 
-\Hypertarget{main_8cpp_a3ecd7492d29572181cc7fb6be4326adb}\label{main_8cpp_a3ecd7492d29572181cc7fb6be4326adb} 
+\Hypertarget{main_8cpp_abe95d043446c01d59b3b60e87e184812}\label{main_8cpp_abe95d043446c01d59b3b60e87e184812} 
+\index{main.cpp@{main.cpp}!first\_time\_below\_threshold@{first\_time\_below\_threshold}}
+\index{first\_time\_below\_threshold@{first\_time\_below\_threshold}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{first\_time\_below\_threshold}{first\_time\_below\_threshold}}
+{\footnotesize\ttfamily volatile unsigned long first\+\_\+time\+\_\+below\+\_\+threshold = 0}
+
+\Hypertarget{main_8cpp_ac03c805c3f48efb3f661537e49fdb2e6}\label{main_8cpp_ac03c805c3f48efb3f661537e49fdb2e6} 
 \index{main.cpp@{main.cpp}!flow\_rate@{flow\_rate}}
 \index{flow\_rate@{flow\_rate}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{flow\_rate}{flow\_rate}}
-{\footnotesize\ttfamily volatile float flow\+\_\+rate = 0.\+0}
+{\footnotesize\ttfamily float flow\+\_\+rate = 0}
 
+\Hypertarget{main_8cpp_a8b3fc9312a4ac3ac0a1912a303cd2b2c}\label{main_8cpp_a8b3fc9312a4ac3ac0a1912a303cd2b2c} 
+\index{main.cpp@{main.cpp}!FLOW\_RATE\_THRESHOLD@{FLOW\_RATE\_THRESHOLD}}
+\index{FLOW\_RATE\_THRESHOLD@{FLOW\_RATE\_THRESHOLD}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{FLOW\_RATE\_THRESHOLD}{FLOW\_RATE\_THRESHOLD}}
+{\footnotesize\ttfamily const float FLOW\+\_\+\+RATE\+\_\+\+THRESHOLD = 2.\+0}
 
+\Hypertarget{main_8cpp_acf6fa007c5df3ae6da9493dbb82973c8}\label{main_8cpp_acf6fa007c5df3ae6da9493dbb82973c8} 
+\index{main.cpp@{main.cpp}!flow\_rate\_to\_publish@{flow\_rate\_to\_publish}}
+\index{flow\_rate\_to\_publish@{flow\_rate\_to\_publish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{flow\_rate\_to\_publish}{flow\_rate\_to\_publish}}
+{\footnotesize\ttfamily float flow\+\_\+rate\+\_\+to\+\_\+publish = 0}
 
-Current flow rate. 
+\Hypertarget{main_8cpp_ac238315487efb9c01783cdc5d6cf38ca}\label{main_8cpp_ac238315487efb9c01783cdc5d6cf38ca} 
+\index{main.cpp@{main.cpp}!global\_password@{global\_password}}
+\index{global\_password@{global\_password}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{global\_password}{global\_password}}
+{\footnotesize\ttfamily String global\+\_\+password}
 
-\Hypertarget{main_8cpp_aa592592ded1d72b2970d33f58e2db2c6}\label{main_8cpp_aa592592ded1d72b2970d33f58e2db2c6} 
-\index{main.cpp@{main.cpp}!flow\_rate\_threshold@{flow\_rate\_threshold}}
-\index{flow\_rate\_threshold@{flow\_rate\_threshold}!main.cpp@{main.cpp}}
-\doxysubsubsection{\texorpdfstring{flow\_rate\_threshold}{flow\_rate\_threshold}}
-{\footnotesize\ttfamily const float flow\+\_\+rate\+\_\+threshold = 5.\+0}
+\Hypertarget{main_8cpp_ae7226302a2da4937f696d4a63ea8a6dd}\label{main_8cpp_ae7226302a2da4937f696d4a63ea8a6dd} 
+\index{main.cpp@{main.cpp}!global\_ssid@{global\_ssid}}
+\index{global\_ssid@{global\_ssid}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{global\_ssid}{global\_ssid}}
+{\footnotesize\ttfamily String global\+\_\+ssid}
 
-
-
-Threshold for significant flow rate to trigger actions. 
+\Hypertarget{main_8cpp_a6c7db28543c3b2ef692f8dcb63964f2b}\label{main_8cpp_a6c7db28543c3b2ef692f8dcb63964f2b} 
+\index{main.cpp@{main.cpp}!gmtOffset\_sec@{gmtOffset\_sec}}
+\index{gmtOffset\_sec@{gmtOffset\_sec}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{gmtOffset\_sec}{gmtOffset\_sec}}
+{\footnotesize\ttfamily const long gmt\+Offset\+\_\+sec = -\/18000}
 
 \Hypertarget{main_8cpp_a289939adbb4b579689aff9bdbd034cae}\label{main_8cpp_a289939adbb4b579689aff9bdbd034cae} 
 \index{main.cpp@{main.cpp}!GREEN\_LED@{GREEN\_LED}}
@@ -253,7 +363,13 @@ Threshold for significant flow rate to trigger actions.
 
 Hostname for the device. 
 
-Hostname for the Wi\+Fi AP and ESPUI server. \Hypertarget{main_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2}\label{main_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2} 
+Hostname for the Wi\+Fi AP and ESPUI server. \Hypertarget{main_8cpp_a65d0c3d3a6aeb060169084edb99d4e50}\label{main_8cpp_a65d0c3d3a6aeb060169084edb99d4e50} 
+\index{main.cpp@{main.cpp}!is\_sending\_data@{is\_sending\_data}}
+\index{is\_sending\_data@{is\_sending\_data}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{is\_sending\_data}{is\_sending\_data}}
+{\footnotesize\ttfamily bool is\+\_\+sending\+\_\+data = false}
+
+\Hypertarget{main_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2}\label{main_8cpp_ada1a895a5ff67fb36ed9a4765f2274d2} 
 \index{main.cpp@{main.cpp}!isConnected@{isConnected}}
 \index{isConnected@{isConnected}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{isConnected}{isConnected}}
@@ -261,17 +377,31 @@ Hostname for the Wi\+Fi AP and ESPUI server. \Hypertarget{main_8cpp_ada1a895a5ff
 
 
 
-Connection status flag. 
+Tracks the connection status of the Wi\+Fi network. 
 
-Tracks the connection status of the Wi\+Fi network. \Hypertarget{main_8cpp_a471abf687001d052decbbda33e0b8ffb}\label{main_8cpp_a471abf687001d052decbbda33e0b8ffb} 
+\Hypertarget{main_8cpp_a471abf687001d052decbbda33e0b8ffb}\label{main_8cpp_a471abf687001d052decbbda33e0b8ffb} 
 \index{main.cpp@{main.cpp}!last\_active\_time@{last\_active\_time}}
 \index{last\_active\_time@{last\_active\_time}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{last\_active\_time}{last\_active\_time}}
 {\footnotesize\ttfamily unsigned long last\+\_\+active\+\_\+time = 0}
 
+\Hypertarget{main_8cpp_acd691389351d63eff2c2721e89f8619d}\label{main_8cpp_acd691389351d63eff2c2721e89f8619d} 
+\index{main.cpp@{main.cpp}!last\_time\_above\_threshold@{last\_time\_above\_threshold}}
+\index{last\_time\_above\_threshold@{last\_time\_above\_threshold}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{last\_time\_above\_threshold}{last\_time\_above\_threshold}}
+{\footnotesize\ttfamily unsigned long last\+\_\+time\+\_\+above\+\_\+threshold = 0}
 
+\Hypertarget{main_8cpp_a2f32c75fb4bc7ba39243ef4a9f8eacc1}\label{main_8cpp_a2f32c75fb4bc7ba39243ef4a9f8eacc1} 
+\index{main.cpp@{main.cpp}!mac@{mac}}
+\index{mac@{mac}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{mac}{mac}}
+{\footnotesize\ttfamily uint8\+\_\+t mac\mbox{[}6\mbox{]}}
 
-Last time the system was active. 
+\Hypertarget{main_8cpp_afdc9e9fd9858882a5e55c637b4a568bb}\label{main_8cpp_afdc9e9fd9858882a5e55c637b4a568bb} 
+\index{main.cpp@{main.cpp}!mac\_suffix@{mac\_suffix}}
+\index{mac\_suffix@{mac\_suffix}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{mac\_suffix}{mac\_suffix}}
+{\footnotesize\ttfamily char mac\+\_\+suffix\mbox{[}13\mbox{]}}
 
 \Hypertarget{main_8cpp_ae16b2283287383f97a79a0df2407eed4}\label{main_8cpp_ae16b2283287383f97a79a0df2407eed4} 
 \index{main.cpp@{main.cpp}!my\_scale@{my\_scale}}
@@ -281,7 +411,7 @@ Last time the system was active.
 
 
 
-Instance of the NAU7802 load cell amplifier. 
+Load cell amplifier instance. 
 
 Instance of the NAU7802 class to communicate with the Qwiic Scale. \Hypertarget{main_8cpp_a7f86660350f23d81b7d8bd36f61a4778}\label{main_8cpp_a7f86660350f23d81b7d8bd36f61a4778} 
 \index{main.cpp@{main.cpp}!ntp\_udp@{ntp\_udp}}
@@ -299,9 +429,11 @@ UDP client for NTP communication. \Hypertarget{main_8cpp_a02e520e9de360b7d35f84e
 \doxysubsubsection{\texorpdfstring{password\_text}{password\_text}}
 {\footnotesize\ttfamily uint16\+\_\+t password\+\_\+text}
 
-
-
-Variables for storing SSID and password inputs. 
+\Hypertarget{main_8cpp_a8b479e182814db39736b339168a0f05f}\label{main_8cpp_a8b479e182814db39736b339168a0f05f} 
+\index{main.cpp@{main.cpp}!prev\_volume@{prev\_volume}}
+\index{prev\_volume@{prev\_volume}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{prev\_volume}{prev\_volume}}
+{\footnotesize\ttfamily float prev\+\_\+volume = INT\+\_\+\+MIN}
 
 \Hypertarget{main_8cpp_a1f6c585ce27342aae02df5f5e45d9836}\label{main_8cpp_a1f6c585ce27342aae02df5f5e45d9836} 
 \index{main.cpp@{main.cpp}!previous\_timestamp@{previous\_timestamp}}
@@ -311,9 +443,9 @@ Variables for storing SSID and password inputs.
 
 
 
-Timestamp of the previous measurement. 
+Stores the last timestamp of measurement, used in flow rate calculation. 
 
-Stores the last timestamp of measurement, used in flow rate calculation. \Hypertarget{main_8cpp_a726aa61c4afe95f49836eca2c90b37c7}\label{main_8cpp_a726aa61c4afe95f49836eca2c90b37c7} 
+\Hypertarget{main_8cpp_a726aa61c4afe95f49836eca2c90b37c7}\label{main_8cpp_a726aa61c4afe95f49836eca2c90b37c7} 
 \index{main.cpp@{main.cpp}!previous\_weight@{previous\_weight}}
 \index{previous\_weight@{previous\_weight}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{previous\_weight}{previous\_weight}}
@@ -321,23 +453,25 @@ Stores the last timestamp of measurement, used in flow rate calculation. \Hypert
 
 
 
-Previous weight measured by the scale. 
+Stores the last measured weight, used to calculate flow rate. 
 
-Stores the last measured weight, used to calculate flow rate. \Hypertarget{main_8cpp_a8124e444ac3f4bc6b0003e3194316c35}\label{main_8cpp_a8124e444ac3f4bc6b0003e3194316c35} 
+\Hypertarget{main_8cpp_a8124e444ac3f4bc6b0003e3194316c35}\label{main_8cpp_a8124e444ac3f4bc6b0003e3194316c35} 
 \index{main.cpp@{main.cpp}!publish\_string@{publish\_string}}
 \index{publish\_string@{publish\_string}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{publish\_string}{publish\_string}}
 {\footnotesize\ttfamily String publish\+\_\+string}
-
-
-
-String for publishing data. 
 
 \Hypertarget{main_8cpp_a8342cade79877346fa253e521b994e5b}\label{main_8cpp_a8342cade79877346fa253e521b994e5b} 
 \index{main.cpp@{main.cpp}!RED\_LED@{RED\_LED}}
 \index{RED\_LED@{RED\_LED}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{RED\_LED}{RED\_LED}}
 {\footnotesize\ttfamily const byte RED\+\_\+\+LED = 33}
+
+\Hypertarget{main_8cpp_a495e5709ad6f0cb4d4ace778edb8e79b}\label{main_8cpp_a495e5709ad6f0cb4d4ace778edb8e79b} 
+\index{main.cpp@{main.cpp}!REQUIRED\_ABOVE\_THRESHOLD\_COUNT@{REQUIRED\_ABOVE\_THRESHOLD\_COUNT}}
+\index{REQUIRED\_ABOVE\_THRESHOLD\_COUNT@{REQUIRED\_ABOVE\_THRESHOLD\_COUNT}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{REQUIRED\_ABOVE\_THRESHOLD\_COUNT}{REQUIRED\_ABOVE\_THRESHOLD\_COUNT}}
+{\footnotesize\ttfamily const int REQUIRED\+\_\+\+ABOVE\+\_\+\+THRESHOLD\+\_\+\+COUNT = 3}
 
 \Hypertarget{main_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3}\label{main_8cpp_a9f497dfb17a59466e58e1b1a4ae34ee3} 
 \index{main.cpp@{main.cpp}!secure\_client@{secure\_client}}
@@ -349,19 +483,55 @@ String for publishing data.
 
 Secure client for Wi\+Fi connections. 
 
-Secure client instance for establishing encrypted connections. \Hypertarget{main_8cpp_af714c2132c62a69b96c0e2ffe338944e}\label{main_8cpp_af714c2132c62a69b96c0e2ffe338944e} 
+Secure client instance for establishing encrypted connections. \Hypertarget{main_8cpp_a0e73f4ee45d241cbab6865dc08bb7c72}\label{main_8cpp_a0e73f4ee45d241cbab6865dc08bb7c72} 
+\index{main.cpp@{main.cpp}!SEND\_DATA\_DURATION@{SEND\_DATA\_DURATION}}
+\index{SEND\_DATA\_DURATION@{SEND\_DATA\_DURATION}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{SEND\_DATA\_DURATION}{SEND\_DATA\_DURATION}}
+{\footnotesize\ttfamily const unsigned long SEND\+\_\+\+DATA\+\_\+\+DURATION = 10000}
+
+\Hypertarget{main_8cpp_af714c2132c62a69b96c0e2ffe338944e}\label{main_8cpp_af714c2132c62a69b96c0e2ffe338944e} 
 \index{main.cpp@{main.cpp}!ssid\_text@{ssid\_text}}
 \index{ssid\_text@{ssid\_text}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{ssid\_text}{ssid\_text}}
 {\footnotesize\ttfamily uint16\+\_\+t ssid\+\_\+text}
 
-\Hypertarget{main_8cpp_afd5928f9da93941740ed17d03ceda93b}\label{main_8cpp_afd5928f9da93941740ed17d03ceda93b} 
+\Hypertarget{main_8cpp_a947d5af4115ebaa27261fd5bb72ade8b}\label{main_8cpp_a947d5af4115ebaa27261fd5bb72ade8b} 
+\index{main.cpp@{main.cpp}!strip@{strip}}
+\index{strip@{strip}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{strip}{strip}}
+{\footnotesize\ttfamily Freenove\+\_\+\+ESP32\+\_\+\+WS2812 strip = Freenove\+\_\+\+ESP32\+\_\+\+WS2812(1, PIN\+\_\+\+NEOPIXEL, 0, TYPE\+\_\+\+GRB)}
+
+\Hypertarget{main_8cpp_a441f85b32e1ee4040eddcd5bb2a5d5f8}\label{main_8cpp_a441f85b32e1ee4040eddcd5bb2a5d5f8} 
+\index{main.cpp@{main.cpp}!temp\_flow\_rate@{temp\_flow\_rate}}
+\index{temp\_flow\_rate@{temp\_flow\_rate}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{temp\_flow\_rate}{temp\_flow\_rate}}
+{\footnotesize\ttfamily float temp\+\_\+flow\+\_\+rate = 0}
+
+\Hypertarget{main_8cpp_a8878b3ec5f8e33f3301d3ffcf953abbe}\label{main_8cpp_a8878b3ec5f8e33f3301d3ffcf953abbe} 
+\index{main.cpp@{main.cpp}!temp\_volume@{temp\_volume}}
+\index{temp\_volume@{temp\_volume}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{temp\_volume}{temp\_volume}}
+{\footnotesize\ttfamily float temp\+\_\+volume = 0}
+
+\Hypertarget{main_8cpp_a016abda2855c77dcc1630f9d2f9f8d18}\label{main_8cpp_a016abda2855c77dcc1630f9d2f9f8d18} 
 \index{main.cpp@{main.cpp}!volume@{volume}}
 \index{volume@{volume}!main.cpp@{main.cpp}}
 \doxysubsubsection{\texorpdfstring{volume}{volume}}
-{\footnotesize\ttfamily volatile float volume = 0.\+0}
+{\footnotesize\ttfamily float volume = 0}
+
+\Hypertarget{main_8cpp_a5a9b80fe93ff83fae0eb68a305fc6031}\label{main_8cpp_a5a9b80fe93ff83fae0eb68a305fc6031} 
+\index{main.cpp@{main.cpp}!volume\_to\_publish@{volume\_to\_publish}}
+\index{volume\_to\_publish@{volume\_to\_publish}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{volume\_to\_publish}{volume\_to\_publish}}
+{\footnotesize\ttfamily float volume\+\_\+to\+\_\+publish = 0}
+
+\Hypertarget{main_8cpp_a67e861b7829aa2e5139b4ffe55c85395}\label{main_8cpp_a67e861b7829aa2e5139b4ffe55c85395} 
+\index{main.cpp@{main.cpp}!WSPASS@{WSPASS}}
+\index{WSPASS@{WSPASS}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WSPASS}{WSPASS}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} WSPASS = "{}1234567890"{}}
 
 
 
-Total volume measured. 
+Web server access password. 
 

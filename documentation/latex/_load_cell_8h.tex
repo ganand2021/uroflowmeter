@@ -33,7 +33,9 @@ NAU7802 \mbox{\hyperlink{_load_cell_8h_ae16b2283287383f97a79a0df2407eed4}{my\+\_
 float \mbox{\hyperlink{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}{previous\+\_\+weight}}
 \begin{DoxyCompactList}\small\item\em Stores the last measured weight, used to calculate flow rate. \end{DoxyCompactList}\item 
 unsigned long \mbox{\hyperlink{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}{previous\+\_\+timestamp}}
-\begin{DoxyCompactList}\small\item\em Stores the last timestamp of measurement, used in flow rate calculation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Stores the last timestamp of measurement, used in flow rate calculation. \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{_load_cell_8h_ab921977929e856b285346a7e57c6d2be}{N\+\_\+\+SAMPLES}} = 60
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -118,7 +120,13 @@ This function starts the Wire library, sets the clock speed, and initializes the
 
 Instance of the NAU7802 class to communicate with the Qwiic Scale. 
 
-Instance of the NAU7802 class to communicate with the Qwiic Scale. \Hypertarget{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}\label{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836} 
+Instance of the NAU7802 class to communicate with the Qwiic Scale. \Hypertarget{_load_cell_8h_ab921977929e856b285346a7e57c6d2be}\label{_load_cell_8h_ab921977929e856b285346a7e57c6d2be} 
+\index{LoadCell.h@{LoadCell.h}!N\_SAMPLES@{N\_SAMPLES}}
+\index{N\_SAMPLES@{N\_SAMPLES}!LoadCell.h@{LoadCell.h}}
+\doxysubsubsection{\texorpdfstring{N\_SAMPLES}{N\_SAMPLES}}
+{\footnotesize\ttfamily const int N\+\_\+\+SAMPLES = 60}
+
+\Hypertarget{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836}\label{_load_cell_8h_a1f6c585ce27342aae02df5f5e45d9836} 
 \index{LoadCell.h@{LoadCell.h}!previous\_timestamp@{previous\_timestamp}}
 \index{previous\_timestamp@{previous\_timestamp}!LoadCell.h@{LoadCell.h}}
 \doxysubsubsection{\texorpdfstring{previous\_timestamp}{previous\_timestamp}}
@@ -128,7 +136,7 @@ Instance of the NAU7802 class to communicate with the Qwiic Scale. \Hypertarget{
 
 Stores the last timestamp of measurement, used in flow rate calculation. 
 
-Stores the last timestamp of measurement, used in flow rate calculation. \Hypertarget{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}\label{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7} 
+\Hypertarget{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7}\label{_load_cell_8h_a726aa61c4afe95f49836eca2c90b37c7} 
 \index{LoadCell.h@{LoadCell.h}!previous\_weight@{previous\_weight}}
 \index{previous\_weight@{previous\_weight}!LoadCell.h@{LoadCell.h}}
 \doxysubsubsection{\texorpdfstring{previous\_weight}{previous\_weight}}
@@ -138,4 +146,3 @@ Stores the last timestamp of measurement, used in flow rate calculation. \Hypert
 
 Stores the last measured weight, used to calculate flow rate. 
 
-Stores the last measured weight, used to calculate flow rate. 

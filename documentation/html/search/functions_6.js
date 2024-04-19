@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['time_5fclient_0',['time_client',['../main_8cpp.html#a95ff6936caea1735195051a8f55b78fb',1,'main.cpp']]],
-  ['toggleblueled_1',['toggleBlueLED',['../main_8cpp.html#a9df9d518e264c01dc3cde5a48d6fdce3',1,'main.cpp']]]
+  ['print_5fvals_0',['print_vals',['../class_median_filter.html#a6eb649a5b42a75678fb229b06b5e21a4',1,'MedianFilter']]],
+  ['pub_5fdoc_1',['pub_doc',['../main_8cpp.html#ac9c56dfe5d67aab23f66e5fba08c01a8',1,'main.cpp']]],
+  ['push_5fval_2',['push_val',['../class_median_filter.html#a52a532aba9959e51470f5084a09d05f2',1,'MedianFilter']]]
 ];

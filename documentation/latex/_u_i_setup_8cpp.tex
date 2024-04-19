@@ -5,6 +5,8 @@
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \mbox{\hyperlink{_u_i_setup_8cpp_aa2c2725056e992910c3e9f2090c14710}{save\+\_\+wifi\+\_\+credentials\+\_\+nvs}} (String ssid, String password)
+\item 
 void \mbox{\hyperlink{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f}{setup\+\_\+ui}} ()
 \begin{DoxyCompactList}\small\item\em Initializes and configures the user interface for Wi\+Fi setup. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
@@ -15,10 +17,22 @@ uint16\+\_\+t \mbox{\hyperlink{_u_i_setup_8cpp_af714c2132c62a69b96c0e2ffe338944e
 uint16\+\_\+t \mbox{\hyperlink{_u_i_setup_8cpp_a02e520e9de360b7d35f84e0eeab5e2da}{password\+\_\+text}}
 \begin{DoxyCompactList}\small\item\em Text field control IDs for SSID and password input. \end{DoxyCompactList}\item 
 const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8}{HOSTNAME}}
-\begin{DoxyCompactList}\small\item\em Hostname for the Wi\+Fi AP and ESPUI server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Hostname for the Wi\+Fi AP and ESPUI server. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_u_i_setup_8cpp_a67e861b7829aa2e5139b4ffe55c85395}{WSPASS}}
+\begin{DoxyCompactList}\small\item\em Web server access password. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{_u_i_setup_8cpp_ae7226302a2da4937f696d4a63ea8a6dd}{global\+\_\+ssid}}
+\item 
+String \mbox{\hyperlink{_u_i_setup_8cpp_ac238315487efb9c01783cdc5d6cf38ca}{global\+\_\+password}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{_u_i_setup_8cpp_aa2c2725056e992910c3e9f2090c14710}\label{_u_i_setup_8cpp_aa2c2725056e992910c3e9f2090c14710} 
+\index{UISetup.cpp@{UISetup.cpp}!save\_wifi\_credentials\_nvs@{save\_wifi\_credentials\_nvs}}
+\index{save\_wifi\_credentials\_nvs@{save\_wifi\_credentials\_nvs}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{save\_wifi\_credentials\_nvs()}{save\_wifi\_credentials\_nvs()}}
+{\footnotesize\ttfamily void save\+\_\+wifi\+\_\+credentials\+\_\+nvs (\begin{DoxyParamCaption}\item[{String}]{ssid,  }\item[{String}]{password }\end{DoxyParamCaption})}
+
 \Hypertarget{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f}\label{_u_i_setup_8cpp_a171306373ac5172c14199b67c20df42f} 
 \index{UISetup.cpp@{UISetup.cpp}!setup\_ui@{setup\_ui}}
 \index{setup\_ui@{setup\_ui}!UISetup.cpp@{UISetup.cpp}}
@@ -34,6 +48,18 @@ Sets up the user interface using the ESPUI library.
 This function configures the ESP device to operate as a Wi\+Fi access point and initializes a web-\/based interface for network configuration. It provides fields for SSID and password input and a connect button to initiate the connection process. The UI is built using the ESPUI library and leverages callbacks for interactive elements. 
 
 \doxysubsection{Variable Documentation}
+\Hypertarget{_u_i_setup_8cpp_ac238315487efb9c01783cdc5d6cf38ca}\label{_u_i_setup_8cpp_ac238315487efb9c01783cdc5d6cf38ca} 
+\index{UISetup.cpp@{UISetup.cpp}!global\_password@{global\_password}}
+\index{global\_password@{global\_password}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{global\_password}{global\_password}}
+{\footnotesize\ttfamily String global\+\_\+password\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{_u_i_setup_8cpp_ae7226302a2da4937f696d4a63ea8a6dd}\label{_u_i_setup_8cpp_ae7226302a2da4937f696d4a63ea8a6dd} 
+\index{UISetup.cpp@{UISetup.cpp}!global\_ssid@{global\_ssid}}
+\index{global\_ssid@{global\_ssid}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{global\_ssid}{global\_ssid}}
+{\footnotesize\ttfamily String global\+\_\+ssid\hspace{0.3cm}{\ttfamily [extern]}}
+
 \Hypertarget{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8}\label{_u_i_setup_8cpp_ac4fbed25c9d82b26a56813f4892022d8} 
 \index{UISetup.cpp@{UISetup.cpp}!HOSTNAME@{HOSTNAME}}
 \index{HOSTNAME@{HOSTNAME}!UISetup.cpp@{UISetup.cpp}}
@@ -59,4 +85,14 @@ Text field control IDs for SSID and password input.
 \index{ssid\_text@{ssid\_text}!UISetup.cpp@{UISetup.cpp}}
 \doxysubsubsection{\texorpdfstring{ssid\_text}{ssid\_text}}
 {\footnotesize\ttfamily uint16\+\_\+t ssid\+\_\+text\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{_u_i_setup_8cpp_a67e861b7829aa2e5139b4ffe55c85395}\label{_u_i_setup_8cpp_a67e861b7829aa2e5139b4ffe55c85395} 
+\index{UISetup.cpp@{UISetup.cpp}!WSPASS@{WSPASS}}
+\index{WSPASS@{WSPASS}!UISetup.cpp@{UISetup.cpp}}
+\doxysubsubsection{\texorpdfstring{WSPASS}{WSPASS}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} WSPASS\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Web server access password. 
 

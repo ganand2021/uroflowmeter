@@ -2,7 +2,7 @@
  * @file main.cpp
  * @brief Main file for a project that involves connecting an ESP32 device to AWS IoT Core,
  *        managing LED states, and measuring flow rates with a sensor.
- * 
+ *
  * This file includes initialization for WiFi, MQTT messaging, JSON document handling,
  * and sensor data processing. It also includes setup and loop functions that are
  * typical in Arduino sketches, managing hardware states and network communications.
@@ -21,7 +21,7 @@
 #include "Timestamp.h"
 #include "LoadCell.h"
 
-// Pinouts for LED
+// LED pin configuration
 const byte GREEN_LED = 27;
 const byte RED_LED = 33;
 const byte BLUE_LED = 12;
@@ -29,49 +29,38 @@ const byte CHARGING_LED = 14;
 
 // Network and MQTT configuration
 WiFiClientSecure secure_client; ///< Secure client for WiFi connections.
-PubSubClient mqtt_client(secure_client); ///< MQTT client instance using the secure WiFi client.
-DynamicJsonDocument pub_doc(256); ///< JSON document for publishing messages, with a buffer size of 256 bytes.
+PubSubClient mqtt_client(secure_client); ///< MQTT client using the secure WiFi client.
+DynamicJsonDocument pub_doc(256); ///< JSON document for publishing MQTT messages.
 const char* HOSTNAME = "ESP-WiFi-GUI"; ///< Hostname for the device.
-const char *WSPASS = "1234567890"; ///< Password for web server access.
+const char* WSPASS = "1234567890"; ///< Web server access password.
 
 // NTP Configuration
 WiFiUDP ntp_udp; ///< UDP instance for NTP communication.
 NTPClient time_client(ntp_udp, NTP_SERVER); ///< NTP client for time synchronization.
 
-// Sensor Configuration
-NAU7802 my_scale; ///< Instance of the NAU7802 load cell amplifier.
+// Sensor configuration
+NAU7802 my_scale; ///< Load cell amplifier instance.
 
 // System state variables
-bool isConnected = false;  ///< Connection status flag.
-uint16_t ssid_text, password_text;  ///< Variables for storing SSID and password inputs.
+bool isConnected = false;
+uint16_t ssid_text, password_text;
 String global_ssid, global_password;
-float previous_weight = 0;  ///< Previous weight measured by the scale.
-unsigned long previous_timestamp = 0;  ///< Timestamp of the previous measurement.
-volatile float flow_rate = 0.0;  ///< Current flow rate.
-volatile float prev_volume = INT_MIN;  ///< Prev Total volume measured.
-volatile float volume = 0.0;  ///< Total volume measured.
-// const float flow_rate_threshold = 5.0;  ///< Threshold for significant flow rate to trigger actions.
-unsigned long current_time = 0;  ///< Current time since the program started.
-unsigned long last_active_time = 0;  ///< Last time the system was active.
-bool blueLedState = false;  ///< State of the blue LED.
-String publish_string;  ///< String for publishing data.
-float battery_value = 0.0;  ///< Current battery voltage.
-
-volatile bool is_sending_data = false;  ///< Tracks whether data is currently being sent.
-unsigned long last_time_above_threshold = 0;  ///< Timestamp when flow rate was last above threshold.
-const unsigned long SEND_DATA_DURATION = 10000;  ///< Duration to keep sending data after flow rate drops (10 seconds).
-const float FLOW_RATE_THRESHOLD = 2.0;  ///< New threshold for flow rate.
-float flow_rate_to_publish = 0.0;
-float volume_to_publish = 0.0;
-float temp_flow_rate = 0.0;
-float temp_volume = 0.0;
+float previous_weight = 0, flow_rate = 0, prev_volume = INT_MIN, volume = 0;
+unsigned long previous_timestamp = 0, current_time = 0, last_active_time = 0;
+bool blueLedState = false;
+String publish_string;
+float battery_value = 0;
+bool is_sending_data = false;
+unsigned long last_time_above_threshold = 0;
+const unsigned long SEND_DATA_DURATION = 10000;
+const float FLOW_RATE_THRESHOLD = 2.0;
+float flow_rate_to_publish = 0, volume_to_publish = 0, temp_flow_rate = 0, temp_volume = 0;
 volatile unsigned long first_time_below_threshold = 0;
-int document_counter = 0;
-volatile int above_threshold_count = 0;
+int document_counter = 0, above_threshold_count = 0;
 const int REQUIRED_ABOVE_THRESHOLD_COUNT = 3;
 
-const long  gmtOffset_sec = -5 * 3600; // New York is UTC-5
-const int   daylightOffset_sec = 3600; // DST offset
+const long  gmtOffset_sec = -18000; // UTC offset for New York
+const int   daylightOffset_sec = 3600; // Daylight Saving Time offset
 
 Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(1, PIN_NEOPIXEL, 0, TYPE_GRB);
 
