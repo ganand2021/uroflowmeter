@@ -3,10 +3,14 @@ name: Generate Doxygen Documentation
 on:
   push:
     branches:
-      - main  # Set this to your default branch
+      - main
   pull_request:
     branches:
-      - main  # Set this to your default branch
+      - main
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
   build:
@@ -27,5 +31,5 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./documentation/html  # Specify the output directory from Doxygen
-        keep_files: true  # Set to true to retain existing files on gh-pages branch
+        publish_dir: ./documentation/html
+        keep_files: true
